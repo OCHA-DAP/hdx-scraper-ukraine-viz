@@ -4,10 +4,13 @@ from hdx.location.adminone import AdminOne
 from hdx.location.country import Country
 from hdx.scraper.runner import Runner
 from scrapers.utilities.update_tabs import (
-    update_national, update_sources,
+    update_national,
+    update_regional,
+    update_sources,
 )
-#from .fts import FTS
-#from .unhcr import UNHCR
+
+from .fts import FTS
+# from .unhcr import UNHCR
 
 logger = logging.getLogger(__name__)
 
@@ -48,19 +51,19 @@ def get_indicators(
         scrapers_to_run=scrapers_to_run,
     )
     configurable_scrapers = dict()
-    for level in "national", :  # "subnational", "regional":
+    for level in ("national",):  # "subnational", "regional":
         suffix = f"_{level}"
         configurable_scrapers[level] = runner.add_configurables(
             configuration[f"scraper{suffix}"], level, suffix=suffix
         )
-#    fts = FTS(configuration["fts"], today, countries, basic_auths)
-#    unhcr = UNHCR(configuration["unhcr"], today, countries, downloader)
-#     runner.add_customs(
-#         (
-#             fts,
-#             unhcr,
-#         )
-#     )
+    fts = FTS(configuration["fts"], today, countries, basic_auths)
+    #    unhcr = UNHCR(configuration["unhcr"], today, countries, downloader)
+    runner.add_customs(
+        (
+            fts,
+            #            unhcr,
+        )
+    )
     runner.run(
         prioritise_scrapers=(
             "population_national",
@@ -91,6 +94,8 @@ def get_indicators(
     #         global_rows,
     #         additional_global_headers,
     #     )
+    if "regional" in tabs:
+        update_regional(runner, outputs)
     if "national" in tabs:
         update_national(
             runner,
