@@ -6,7 +6,7 @@ from hdx.scraper.runner import Runner
 from scrapers.utilities.update_tabs import (
     update_national,
     update_regional,
-    update_sources,
+    update_sources, update_subnational,
 )
 
 from .fts import FTS
@@ -52,7 +52,7 @@ def get_indicators(
         scrapers_to_run=scrapers_to_run,
     )
     configurable_scrapers = dict()
-    for level in ("national",):  # "subnational", "regional":
+    for level in ("national", "subnational"):
         suffix = f"_{level}"
         configurable_scrapers[level] = runner.add_configurables(
             configuration[f"scraper{suffix}"], level, suffix=suffix
@@ -76,28 +76,6 @@ def get_indicators(
     national_names = configurable_scrapers["national"]
     national_names.insert(1, "unhcr")
     national_names.insert(len(national_names) - 1, "fts")
-    # global_rows = get_global_rows(
-    #     runner, global_names, {"who_covid": {"gho": "global"}}
-    # )
-    # regional_rows = get_regional_rows(runner, RegionLookups.regions + ["global"])
-    # if "world" in tabs:
-    #     update_world(
-    #         outputs, global_rows, regional_rows, configuration["regional"]["global"]
-    #     )
-    # if "regional" in tabs:
-    #     additional_global_headers = (
-    #         "Cumulative_cases",
-    #         "Cumulative_deaths",
-    #         "RequiredHRPFunding",
-    #         "HRPFunding",
-    #         "HRPPercentFunded",
-    #     )
-    #     update_regional(
-    #         outputs,
-    #         regional_rows,
-    #         global_rows,
-    #         additional_global_headers,
-    #     )
     if "regional" in tabs:
         update_regional(runner, outputs)
     if "national" in tabs:
@@ -107,8 +85,8 @@ def get_indicators(
             countries,
             outputs,
         )
-    # if "subnational" in tabs:
-    #     update_subnational(runner, subnational_names, adminone, outputs)
+    if "subnational" in tabs:
+        update_subnational(runner, adminone, outputs)
 
     adminone.output_matches()
     adminone.output_ignored()

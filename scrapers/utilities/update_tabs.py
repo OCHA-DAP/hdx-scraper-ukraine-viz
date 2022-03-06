@@ -20,6 +20,8 @@ sources_headers = (
 
 
 def update_tab(outputs, name, data):
+    if not data:
+        return
     logger.info(f"Updating tab: {name}")
     for output in outputs.values():
         output.update_tab(name, data)
@@ -27,8 +29,7 @@ def update_tab(outputs, name, data):
 
 def update_regional(runner, outputs):
     rows = runner.get_rows("regional", ("value",))
-    if rows:
-        update_tab(outputs, "regional", rows)
+    update_tab(outputs, "regional", rows)
 
 
 def update_national(runner, names, countries, outputs):
@@ -37,6 +38,23 @@ def update_national(runner, names, countries, outputs):
     fns = (lambda adm: adm, name_fn)
     rows = runner.get_rows("national", countries, national_headers, fns, names=names)
     update_tab(outputs, "national", rows)
+
+
+def update_subnational(runner, adminone, outputs):
+    def get_country_name(adm):
+        countryiso3 = adminone.pcode_to_iso3[adm]
+        return Country.get_country_name_from_iso3(countryiso3)
+
+    fns = (
+        lambda adm: adminone.pcode_to_iso3[adm],
+        get_country_name,
+        lambda adm: adm,
+        lambda adm: adminone.pcode_to_name[adm],
+    )
+    rows = runner.get_rows(
+        "subnational", adminone.pcodes, subnational_headers, fns
+    )
+    update_tab(outputs, "subnational", rows)
 
 
 def update_sources(runner, outputs):
