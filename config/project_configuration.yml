@@ -1,0 +1,101 @@
+tabs:
+  regional: "RegionalData"
+  national: "NationalData"
+  subnational: "SubnationalData"
+  sources: "Sources"
+
+
+googlesheets:
+  prod: "https://docs.google.com/spreadsheets/d/1a8OfzVRU5ZKDR9EoPu0TGSqb-HqedbmJC9v9jyYGDDE/edit#gid=918365211"
+
+json:
+  filepath: "all.json"
+
+# national
+scraper_national:
+  population:
+    source: "WorldPop"
+    source_url: "https://data.humdata.org/dataset/worldpop-population-counts-for-ukraine"
+    format: "xls"
+    url: "http://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=excel&dataformat=list"
+    sheet: "Data"
+    headers: 3
+    prefilter: "Value != ''"
+    adm_cols:
+      - "Country Code"
+    adm_exact: True
+    date_col: "Year"
+    date_type: "year"
+    input_cols:
+      - "Value"
+    output_cols:
+      - "Population"
+    output_hxltags:
+      - "#population"
+
+countries:
+  - UKR
+
+country_name_overrides:
+
+country_name_mappings:
+
+admin1_info:
+  - {country: Ukraine, iso3: UKR, pcode: UA01, name: Avtonomna Respublika Krym}
+  - {country: Ukraine, iso3: UKR, pcode: UA71, name: Cherkaska}
+  - {country: Ukraine, iso3: UKR, pcode: UA74, name: Chernihivska}
+  - {country: Ukraine, iso3: UKR, pcode: UA73, name: Chernivetska}
+  - {country: Ukraine, iso3: UKR, pcode: UA12, name: Dnipropetrovska}
+  - {country: Ukraine, iso3: UKR, pcode: UA14, name: Donetska}
+  - {country: Ukraine, iso3: UKR, pcode: UA26, name: Ivano Frankivska}
+  - {country: Ukraine, iso3: UKR, pcode: UA63, name: Kharkivska}
+  - {country: Ukraine, iso3: UKR, pcode: UA65, name: Khersonska}
+  - {country: Ukraine, iso3: UKR, pcode: UA68, name: Khmelnytska}
+  - {country: Ukraine, iso3: UKR, pcode: UA35, name: Kirovohradska}
+  - {country: Ukraine, iso3: UKR, pcode: UA80, name: Kyivska}
+  - {country: Ukraine, iso3: UKR, pcode: UA32, name: Kyivska}
+  - {country: Ukraine, iso3: UKR, pcode: UA44, name: Luhanska}
+  - {country: Ukraine, iso3: UKR, pcode: UA46, name: Lvivska}
+  - {country: Ukraine, iso3: UKR, pcode: UA48, name: Mykolaivska}
+  - {country: Ukraine, iso3: UKR, pcode: UA51, name: Odeska}
+  - {country: Ukraine, iso3: UKR, pcode: UA53, name: Poltavska}
+  - {country: Ukraine, iso3: UKR, pcode: UA56, name: Rivnenska}
+  - {country: Ukraine, iso3: UKR, pcode: UA85, name: Sevastopol}
+  - {country: Ukraine, iso3: UKR, pcode: UA59, name: Sumska}
+  - {country: Ukraine, iso3: UKR, pcode: UA61, name: Ternopilska}
+  - {country: Ukraine, iso3: UKR, pcode: UA05, name: Vinnytska}
+  - {country: Ukraine, iso3: UKR, pcode: UA07, name: Volynska}
+  - {country: Ukraine, iso3: UKR, pcode: UA21, name: Zakarpatska}
+  - {country: Ukraine, iso3: UKR, pcode: UA23, name: Zaporizka}
+  - {country: Ukraine, iso3: UKR, pcode: UA18, name: Zhytomyrska}
+
+admin1_name_mappings:
+  "Chernigovskaja Oblast": "UA74"
+  "Chernіvеtskaja Oblast": "UA73"
+  "Crimea": "UA01"
+  "Luganskaja Oblast": "UA44"
+  "Rovenskaja Oblast": "UA56"
+  "Sevastopol City": "UA85"
+  "Zapоrіzskaja Oblast": "UA23"
+
+admin1_name_replacements:
+  " urban": ""
+  "sud": "south"
+  "ouest": "west"
+  "est": "east"
+  "nord": "north"
+  "'": ""
+  "/": " "
+  ".": " "
+  " region": ""
+  " oblast": ""
+
+admin1_fuzzy_dont:
+  - "nord"
+  - "north"
+  - "sud"
+  - "south"
+  - "est"
+  - "east"
+  - "ouest"
+  - "west"
