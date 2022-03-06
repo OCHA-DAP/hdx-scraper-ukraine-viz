@@ -11,6 +11,7 @@ from scrapers.utilities.update_tabs import (
 
 from .fts import FTS
 # from .unhcr import UNHCR
+from .unhcr import UNHCR
 
 logger = logging.getLogger(__name__)
 
@@ -57,11 +58,11 @@ def get_indicators(
             configuration[f"scraper{suffix}"], level, suffix=suffix
         )
     fts = FTS(configuration["fts"], today, countries, basic_auths)
-    #    unhcr = UNHCR(configuration["unhcr"], today, countries, downloader)
+    unhcr = UNHCR(configuration["unhcr"], today, outputs, downloader)
     runner.add_customs(
         (
             fts,
-            #            unhcr,
+            unhcr,
         )
     )
     runner.run(
@@ -72,6 +73,9 @@ def get_indicators(
         )
     )
 
+    national_names = configurable_scrapers["national"]
+    national_names.insert(1, "unhcr")
+    national_names.insert(len(national_names) - 1, "fts")
     # global_rows = get_global_rows(
     #     runner, global_names, {"who_covid": {"gho": "global"}}
     # )
@@ -99,6 +103,7 @@ def get_indicators(
     if "national" in tabs:
         update_national(
             runner,
+            national_names,
             countries,
             outputs,
         )

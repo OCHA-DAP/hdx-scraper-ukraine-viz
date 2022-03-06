@@ -27,14 +27,15 @@ def update_tab(outputs, name, data):
 
 def update_regional(runner, outputs):
     rows = runner.get_rows("regional", ("value",))
-    update_tab(outputs, "regional", rows)
+    if rows:
+        update_tab(outputs, "regional", rows)
 
 
-def update_national(runner, countries, outputs):
+def update_national(runner, names, countries, outputs):
     name_fn = lambda adm: Country.get_country_name_from_iso3(adm)
 
     fns = (lambda adm: adm, name_fn)
-    rows = runner.get_rows("national", countries, national_headers, fns)
+    rows = runner.get_rows("national", countries, national_headers, fns, names=names)
     update_tab(outputs, "national", rows)
 
 
