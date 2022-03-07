@@ -15,23 +15,15 @@ class FTSException(Exception):
 
 class FTS(BaseScraper):
     def __init__(self, datasetinfo, today, countryiso3s, basic_auths):
-        national_hxltags = (
-            "#value+funding+hrp+required+usd",
-            "#value+funding+hrp+total+usd",
-            "#value+funding+hrp+pct",
-            "#value+funding+other+plan_name",
-            "#value+funding+other+required+usd",
-            "#value+funding+other+total+usd",
-            "#value+funding+other+pct",
-            "#value+funding+uhf+usd",
-        )
-
         super().__init__(
             "fts",
             datasetinfo,
             {
                 "national": (
                     (
+                        "Affected",
+                        "InNeed",
+                        "Targeted",
                         "RequiredHRPFunding",
                         "HRPFunding",
                         "HRPPercentFunded",
@@ -42,6 +34,9 @@ class FTS(BaseScraper):
                         "UHFFunding",
                     ),
                     (
+                        "#affected+ind",
+                        "#inneed+ind",
+                        "#targeted+ind",
                         "#value+funding+hrp+required+usd",
                         "#value+funding+hrp+total+usd",
                         "#value+funding+hrp+pct",
@@ -125,6 +120,9 @@ class FTS(BaseScraper):
 
     def run(self) -> None:
         (
+            affected,
+            inneed,
+            targeted,
             hrp_requirements,
             hrp_funding,
             hrp_percentage,
@@ -207,6 +205,15 @@ class FTS(BaseScraper):
                                 "funding": allfund,
                                 "percentfunded": allpct,
                             }
+                        elif plan_type == "flash appeal":
+                            for caseload in plan["caseLoads"][0]["totals"]:
+                                name = caseload["name"]["en"].replace(" ", "").lower()
+                                if name == "affected":
+                                    affected["UKR"] = caseload["value"]
+                                elif name == "inneed":
+                                    inneed["UKR"] = caseload["value"]
+                                elif name == "targeted":
+                                    targeted["UKR"] = caseload["value"]
                         add_other_requirements_and_funding(
                             countryiso, plan_name, allreq, allfund, allpct
                         )
@@ -266,9 +273,10 @@ class FTS(BaseScraper):
                     break
 
             regional_values = self.get_values("regional")
-            regional_plan = list(regional_plans.values())[
-                0
-            ]  # There should only be one regional plan!
+            regional_plans = list(regional_plans.values())
+            if len(regional_plans) != 1:
+                logger.warning("There is more than one regional level Ukraine plan!")
+            regional_plan = regional_plans[0]  # There should only be one regional plan!
             regional_values[0]["value"] = regional_plan["requirements"]
             regional_values[1]["value"] = regional_plan["funding"]
             regional_values[2]["value"] = regional_plan["percentfunded"]
