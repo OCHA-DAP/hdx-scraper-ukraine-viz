@@ -21,9 +21,7 @@ class FTS(BaseScraper):
             {
                 "national": (
                     (
-                        "Affected",
                         "InNeed",
-                        "Targeted",
                         "RequiredHRPFunding",
                         "HRPFunding",
                         "HRPPercentFunded",
@@ -34,9 +32,7 @@ class FTS(BaseScraper):
                         "UHFFunding",
                     ),
                     (
-                        "#affected+ind",
                         "#inneed+ind",
-                        "#targeted+ind",
                         "#value+funding+hrp+required+usd",
                         "#value+funding+hrp+total+usd",
                         "#value+funding+hrp+pct",
@@ -120,9 +116,7 @@ class FTS(BaseScraper):
 
     def run(self) -> None:
         (
-            affected,
             inneed,
-            targeted,
             hrp_requirements,
             hrp_funding,
             hrp_percentage,
@@ -205,16 +199,12 @@ class FTS(BaseScraper):
                                 "funding": allfund,
                                 "percentfunded": allpct,
                             }
-                        # Get Ukraine flash appeal PiN etc.
+                        # Get Ukraine flash appeal PiN
                         elif plan_type == "flash appeal":
                             for caseload in plan["caseLoads"][0]["totals"]:
                                 name = caseload["name"]["en"].replace(" ", "").lower()
-                                if name == "affected":
-                                    affected["UKR"] = caseload["value"]
-                                elif name == "inneed":
+                                if name == "inneed":
                                     inneed["UKR"] = caseload["value"]
-                                elif name == "targeted":
-                                    targeted["UKR"] = caseload["value"]
                         add_other_requirements_and_funding(
                             countryiso, plan_name, allreq, allfund, allpct
                         )

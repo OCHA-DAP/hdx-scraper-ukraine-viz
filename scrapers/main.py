@@ -60,7 +60,7 @@ def get_indicators(
             configuration[f"scraper{suffix}"], level, suffix=suffix
         )
     fts = FTS(configuration["fts"], today, countries, basic_auths)
-    unhcr = UNHCR(configuration["unhcr"], today, outputs, downloader)
+    unhcr = UNHCR(configuration["unhcr"], today, outputs, countries, downloader)
     runner.add_customs(
         (
             fts,
