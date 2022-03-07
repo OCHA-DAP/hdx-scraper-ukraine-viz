@@ -15,18 +15,16 @@ class FTSException(Exception):
 
 class FTS(BaseScraper):
     def __init__(self, datasetinfo, today, countryiso3s, basic_auths):
-        base_hxltags = [
+        national_hxltags = (
             "#value+funding+hrp+required+usd",
             "#value+funding+hrp+total+usd",
             "#value+funding+hrp+pct",
-        ]
-        national_hxltags = base_hxltags + [
             "#value+funding+other+plan_name",
             "#value+funding+other+required+usd",
             "#value+funding+other+total+usd",
             "#value+funding+other+pct",
             "#value+funding+uhf+usd",
-        ]
+        )
 
         super().__init__(
             "fts",
@@ -43,11 +41,24 @@ class FTS(BaseScraper):
                         "OtherPlansPercentFunded",
                         "UHFFunding",
                     ),
-                    tuple(national_hxltags),
+                    (
+                        "#value+funding+hrp+required+usd",
+                        "#value+funding+hrp+total+usd",
+                        "#value+funding+hrp+pct",
+                        "#value+funding+other+plan_name",
+                        "#value+funding+other+required+usd",
+                        "#value+funding+other+total+usd",
+                        "#value+funding+other+pct",
+                        "#value+funding+uhf+usd",
+                    ),
                 ),
                 "regional": (
                     ("RequiredFunding", "Funding", "PercentFunded"),
-                    tuple(base_hxltags),
+                    (
+                        "#value+funding+rrp+required+usd",
+                        "#value+funding+rrp+total+usd",
+                        "#value+funding+rrp+pct",
+                    ),
                 ),
             },
         )

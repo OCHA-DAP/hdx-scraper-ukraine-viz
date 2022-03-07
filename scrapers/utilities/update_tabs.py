@@ -51,9 +51,7 @@ def update_subnational(runner, adminone, outputs):
         lambda adm: adm,
         lambda adm: adminone.pcode_to_name[adm],
     )
-    rows = runner.get_rows(
-        "subnational", adminone.pcodes, subnational_headers, fns
-    )
+    rows = runner.get_rows("subnational", adminone.pcodes, subnational_headers, fns)
     update_tab(outputs, "subnational", rows)
 
 

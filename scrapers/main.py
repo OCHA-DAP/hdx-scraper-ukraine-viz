@@ -6,10 +6,12 @@ from hdx.scraper.runner import Runner
 from scrapers.utilities.update_tabs import (
     update_national,
     update_regional,
-    update_sources, update_subnational,
+    update_sources,
+    update_subnational,
 )
 
 from .fts import FTS
+
 # from .unhcr import UNHCR
 from .unhcr import UNHCR
 

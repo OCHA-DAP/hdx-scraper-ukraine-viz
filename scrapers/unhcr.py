@@ -1,4 +1,5 @@
 import logging
+
 from hdx.location.country import Country
 from hdx.scraper.base_scraper import BaseScraper
 
@@ -34,11 +35,13 @@ class UNHCR(BaseScraper):
 
         url = self.datasetinfo["url_series"]
         r = self.downloader.download(url)
-        rows = [("RefugeesDate", "NoRefugees"), ("#affected+date+refugees", "#affected+refugees")]
+        rows = [
+            ("RefugeesDate", "NoRefugees"),
+            ("#affected+date+refugees", "#affected+refugees"),
+        ]
         for data in r.json()["data"]["timeseries"]:
             rows.append((data["data_date"], data["individuals"]))
         tabname = "refugees_series"
         for output in self.outputs.values():
             output.update_tab(tabname, rows)
         self.datasetinfo["date"] = self.today
-
