@@ -205,6 +205,7 @@ class FTS(BaseScraper):
                                 "funding": allfund,
                                 "percentfunded": allpct,
                             }
+                        # Get Ukraine flash appeal PiN etc.
                         elif plan_type == "flash appeal":
                             for caseload in plan["caseLoads"][0]["totals"]:
                                 name = caseload["name"]["en"].replace(" ", "").lower()
@@ -265,6 +266,7 @@ class FTS(BaseScraper):
                     other_percentage[countryiso]
                 )
 
+            # Get Ukraine Humanitarian Fund funding
             url = f"{base_url}2/fts/flow/plan/overview/recipient/{curdate.year}"
             data = self.download_data(url, downloader)
             for org_data in data["organizations"]:

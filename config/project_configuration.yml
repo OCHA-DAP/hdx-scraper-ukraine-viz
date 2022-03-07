@@ -9,6 +9,7 @@ tabs:
 googlesheets:
   prod: "https://docs.google.com/spreadsheets/d/1a8OfzVRU5ZKDR9EoPu0TGSqb-HqedbmJC9v9jyYGDDE/edit#gid=0"
   test: "https://docs.google.com/spreadsheets/d/1wqnTR1i-DcFwh68BGGQgi4U9N4onLxqXvsmIhkchJVk/edit#gid=0"
+  scratch: "https://docs.google.com/spreadsheets/d/1XfsqmwE9F0X551WfQU6KPqvlE0mW1auInxMSW_fj6Rc/edit#gid=0"
 
 json:
   filepath: "all.json"
@@ -34,6 +35,25 @@ scraper_national:
       - "Population"
     output_hxltags:
       - "#population"
+  casualties:
+    source: "OCHCR"
+    source_url: "https://data.humdata.org/dataset/ukraine-refugee-situation"
+    format: "csv"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    headers: 2
+    adm_cols:
+      - "Country"
+    date_col: "Date"
+    date_type: "date"
+    input_cols:
+      - "Civilian casualities(OHCHR) - Killed"
+      - "Civilian casualities(OHCHR) - Injured"
+    output_cols:
+      - "CiviliansKilled"
+      - "CiviliansInjured"
+    output_hxltags:
+      - "#affected+killed"
+      - "#affected+injured"
   allocations:
     source:
       "#value+cbpf+funding+total+usd": "CBPF"
@@ -56,7 +76,6 @@ scraper_national:
       - "CountryCode"
     filter_cols:
       - "FundType"
-      - "GenderMarker"
     subsets:
       - filter: "FundType == 'CBPF'"
         input_cols:
@@ -86,7 +105,11 @@ scraper_national:
 fts:
   url: "https://api.hpc.tools/v"
   source: "OCHA"
-  source_url: "https://data.humdata.org/dataset/fts-requirements-and-funding-data-for-ukraine"
+  source_url:
+    "#affected+ind": "https://data.humdata.org/dataset/ukraine-refugee-situation"
+    "#inneed+ind": "https://data.humdata.org/dataset/ukraine-refugee-situation"
+    "#targeted+ind": "https://data.humdata.org/dataset/ukraine-refugee-situation"
+    "default_url": "https://data.humdata.org/dataset/fts-requirements-and-funding-data-for-ukraine"
 
 unhcr:
   url: "https://data2.unhcr.org/population/get/sublocation?widget_id=283575&sv_id=54&population_group=5459,5460&forcesublocation=0&fromDate=1900-01-01"
