@@ -73,12 +73,12 @@ def get_indicators(
         )
     )
 
-    national_names = configurable_scrapers["national"]
-    national_names.insert(1, "unhcr")
-    national_names.insert(len(national_names) - 1, "fts")
     if "regional" in tabs:
         update_regional(runner, outputs)
     if "national" in tabs:
+        national_names = configurable_scrapers["national"]
+        national_names.insert(1, "unhcr")
+        national_names.insert(len(national_names) - 1, "fts")
         update_national(
             runner,
             national_names,

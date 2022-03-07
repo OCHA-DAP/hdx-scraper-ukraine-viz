@@ -25,6 +25,7 @@ class FTS(BaseScraper):
             "#value+funding+other+required+usd",
             "#value+funding+other+total+usd",
             "#value+funding+other+pct",
+            "#value+funding+uhf+usd",
         ]
 
         super().__init__(
@@ -40,6 +41,7 @@ class FTS(BaseScraper):
                         "RequiredOtherPlansFunding",
                         "OtherPlansFunding",
                         "OtherPlansPercentFunded",
+                        "UHFFunding",
                     ),
                     tuple(national_hxltags),
                 ),
@@ -119,6 +121,7 @@ class FTS(BaseScraper):
             other_requirements,
             other_funding,
             other_percentage,
+            uhf_funding,
         ) = self.get_values("national")
 
         def add_other_requirements_and_funding(iso3, name, req, fund, pct):
@@ -244,6 +247,14 @@ class FTS(BaseScraper):
                 other_percentage[countryiso] = create_output(
                     other_percentage[countryiso]
                 )
+
+            url = f"{base_url}2/fts/flow/plan/overview/recipient/{curdate.year}"
+            data = self.download_data(url, downloader)
+            for org_data in data["organizations"]:
+                if org_data["id"] == 10108:
+                    uhf_funding["UKR"] = org_data["totalFunding"]
+                    break
+
             regional_values = self.get_values("regional")
             regional_plan = list(regional_plans.values())[
                 0
