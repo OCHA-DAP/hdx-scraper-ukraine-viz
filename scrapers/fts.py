@@ -185,7 +185,7 @@ class FTS(BaseScraper):
                             has_ukr = True
                         countryid = country["id"]
                         countryid_iso3mapping[str(countryid)] = countryiso
-                if not has_ukr:
+                if not has_ukr and custom_location_code != "UKRN":
                     continue
                 if len(countryid_iso3mapping) == 1:
                     countryiso = countryid_iso3mapping.popitem()[1]
@@ -207,10 +207,9 @@ class FTS(BaseScraper):
                                 "funding": allfund,
                                 "percentfunded": allpct,
                             }
-                        if custom_location_code != "UKRN":
-                            add_other_requirements_and_funding(
-                                countryiso, plan_name, allreq, allfund, allpct
-                            )
+                        add_other_requirements_and_funding(
+                            countryiso, plan_name, allreq, allfund, allpct
+                        )
                 else:
                     (
                         countryreqs,

@@ -251,6 +251,24 @@ unhcr:
   source_url: "https://data.humdata.org/organization/unhcr"
 
 scraper_subnational:
+  population:
+    source: "WorldPop"
+    source_url: "https://data.humdata.org/search?organization=worldpop&q=%22population%20counts%22"
+    format: "csv"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_uBOV_uRDSxOggfBus_pkCs6Iw9lm0nAxzwG14YF_frpm13WPKiM1oNnQ9zrUA/pub?gid=1565793974&single=true&output=csv"
+    dataset: "global-humanitarian-response-plan-covid-19-administrative-boundaries-and-population-statistics"
+    headers: 1
+    adm_cols:
+      - "alpha_3"
+      - "ADM1_PCODE"
+    input_cols:
+      - "POPULATION"
+    input_transforms:
+      "POPULATION": "get_numeric_if_possible(POPULATION)"
+    output_cols:
+      - "Population"
+    output_hxltags:
+      - "#population"
   health_facilities:
     source: "HOT"
     format: "csv"
