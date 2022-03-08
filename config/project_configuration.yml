@@ -36,7 +36,7 @@ scraper_national:
     output_hxltags:
       - "#population"
   casualties:
-    source: "OCHCR"
+    source: "OHCHR"
     source_url: "https://data.humdata.org/dataset/ukraine-refugee-situation"
     format: "csv"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
