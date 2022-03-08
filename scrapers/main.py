@@ -95,5 +95,5 @@ def get_indicators(
     adminone.output_errors()
 
     if "sources" in tabs:
-        update_sources(runner, outputs)
+        update_sources(runner, configuration, today, outputs)
     return countries
