@@ -152,6 +152,9 @@ scraper_subnational:
     output_hxltags:
       - "#loc+count+health"
 
+geojson:
+  dataset: "ukraine-border-crossings"
+
 countries:
   - UKR
   - POL

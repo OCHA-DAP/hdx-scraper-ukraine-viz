@@ -16,7 +16,9 @@ class UNHCR(BaseScraper):
                     ("NoRefugees", "RefugeesDate"),
                     ("#affected+refugees", "#affected+date+refugees"),
                 ),
-                "regional": (("NoRefugees",), ("#affected+refugees",),
+                "regional": (
+                    ("NoRefugees",),
+                    ("#affected+refugees",),
                 ),
             },
         )

@@ -1,2 +1,2 @@
-git+git://github.com/OCHA-DAP/hdx-python-scraper.git#egg=hdx-python-scraper
+hdx-python-scraper==1.4.6
 
