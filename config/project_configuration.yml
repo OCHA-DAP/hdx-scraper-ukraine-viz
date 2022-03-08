@@ -37,7 +37,7 @@ scraper_national:
       - "#population"
   casualties:
     source: "OHCHR"
-    source_url: "https://data.humdata.org/dataset/ukraine-refugee-situation"
+    source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
     format: "csv"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
     headers: 2
@@ -106,9 +106,9 @@ fts:
   url: "https://api.hpc.tools/v"
   source: "OCHA"
   source_url:
-    "#affected+ind": "https://data.humdata.org/dataset/ukraine-refugee-situation"
-    "#inneed+ind": "https://data.humdata.org/dataset/ukraine-refugee-situation"
-    "#targeted+ind": "https://data.humdata.org/dataset/ukraine-refugee-situation"
+    "#affected+ind": "https://data.humdata.org/dataset/ukraine-key-figures-2022"
+    "#inneed+ind": "https://data.humdata.org/dataset/ukraine-key-figures-2022"
+    "#targeted+ind": "https://data.humdata.org/dataset/ukraine-key-figures-2022"
     "default_url": "https://data.humdata.org/dataset/fts-requirements-and-funding-data-for-ukraine"
 
 unhcr:
