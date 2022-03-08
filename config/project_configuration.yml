@@ -14,6 +14,10 @@ googlesheets:
 json:
   filepath: "all.json"
 
+additional_sources:
+  - indicator: "#geojson"
+    dataset: "ukraine-border-crossings"
+
 # national
 scraper_national:
   population:
