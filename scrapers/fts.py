@@ -2,6 +2,7 @@ import logging
 
 from dateutil.relativedelta import relativedelta
 from hdx.scraper.base_scraper import BaseScraper
+from hdx.utilities.dateparse import parse_date
 from hdx.utilities.dictandlist import dict_of_lists_add
 from hdx.utilities.downloader import Download
 from hdx.utilities.text import get_fraction_str
@@ -54,6 +55,7 @@ class FTS(BaseScraper):
             },
         )
         self.today = today
+        self.flash_source_date = today
         self.countryiso3s = countryiso3s
         self.basic_auths = basic_auths
 
@@ -201,6 +203,7 @@ class FTS(BaseScraper):
                             }
                         # Get Ukraine flash appeal PiN
                         elif plan_type == "flash appeal":
+                            self.flash_source_date = parse_date(plan["startDate"])
                             for caseload in plan["caseLoads"][0]["totals"]:
                                 name = caseload["name"]["en"].replace(" ", "").lower()
                                 if name == "inneed":
@@ -274,3 +277,11 @@ class FTS(BaseScraper):
             regional_values[2]["value"] = regional_plan["percentfunded"]
             self.datasetinfo["date"] = self.today
             logger.info("Processed FTS")
+
+    def add_sources(self):
+        super().add_sources()
+        date = self.flash_source_date.strftime("%Y-%m-%d")
+        source = list(self.sources["national"][0])
+        source[1] = date
+        self.sources["national"][0] = tuple(source)
+
