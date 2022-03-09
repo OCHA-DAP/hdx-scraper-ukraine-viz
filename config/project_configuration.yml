@@ -22,9 +22,9 @@ additional_sources:
 scraper_national:
   population:
     source: "WorldPop"
-    source_url: "https://data.humdata.org/dataset/worldpop-population-counts-for-ukraine"
-    format: "xls"
+    dataset: "worldpop-population-counts-for-ukraine"
     url: "http://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=excel&dataformat=list"
+    format: "xls"
     sheet: "Data"
     headers: 3
     prefilter: "Value != ''"
@@ -42,8 +42,8 @@ scraper_national:
   casualties:
     source: "OHCHR"
     source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
-    format: "csv"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    format: "csv"
     headers: 2
     adm_cols:
       - "Country"
@@ -65,10 +65,9 @@ scraper_national:
     source_url:
       "#value+cbpf+funding+total+usd": "https://data.humdata.org/dataset/cbpf-allocations-and-contributions"
       "default_url": "https://data.humdata.org/dataset/cerf-allocations"
-    format: "csv"
-    url: "https://cbpfgms.github.io/pfbi-data/download/full_pfmb_allocations.csv"
     dataset: "cerf-allocations"
-    headers: 1
+    url: "https://cbpfgms.github.io/pfbi-data/download/full_pfmb_allocations.csv"
+    format: "csv"
     sort:
       reverse: True
       keys:
@@ -107,7 +106,6 @@ scraper_national:
           - "#value+cerf+funding+total+usd"
 
 fts:
-  url: "https://api.hpc.tools/v"
   source: "OCHA"
   source_url:
     "#inneed+ind": "https://data.humdata.org/dataset/ukraine-key-figures-2022"
@@ -115,21 +113,20 @@ fts:
     "#value+funding+rrp+total+usd": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzvb2ZKLS95aToa_SBYfsZIFhcL_0rvfir5kSUNzl7KNY8UIAVH9AyBZ2I-d5yAZly4l6S15bCVM_d/pub?gid=918365211&single=true&output=csv"
     "#value+funding+rrp+pct": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzvb2ZKLS95aToa_SBYfsZIFhcL_0rvfir5kSUNzl7KNY8UIAVH9AyBZ2I-d5yAZly4l6S15bCVM_d/pub?gid=918365211&single=true&output=csv"
     "default_url": "https://data.humdata.org/dataset/fts-requirements-and-funding-data-for-ukraine"
+  url: "https://api.hpc.tools/v"
 
 unhcr:
-  url: "https://data2.unhcr.org/population/get/sublocation?widget_id=283575&sv_id=54&population_group=5459,5460&forcesublocation=0&fromDate=1900-01-01"
-  url_series: "https://data2.unhcr.org/population/get/timeseries?widget_id=283577&sv_id=54&population_group=5457&frequency=day&fromDate=1900-01-01"
   source: "UNHCR"
   source_url: "https://data2.unhcr.org/en/situations/ukraine"
+  url: "https://data2.unhcr.org/population/get/sublocation?widget_id=283575&sv_id=54&population_group=5459,5460&forcesublocation=0&fromDate=1900-01-01"
+  url_series: "https://data2.unhcr.org/population/get/timeseries?widget_id=283577&sv_id=54&population_group=5457&frequency=day&fromDate=1900-01-01"
 
 scraper_subnational:
   population:
     source: "WorldPop"
-    source_url: "https://data.humdata.org/search?organization=worldpop&q=%22population%20counts%22"
-    format: "csv"
+    dataset: "worldpop-population-counts-for-ukraine"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_uBOV_uRDSxOggfBus_pkCs6Iw9lm0nAxzwG14YF_frpm13WPKiM1oNnQ9zrUA/pub?gid=1565793974&single=true&output=csv"
-    dataset: "global-humanitarian-response-plan-covid-19-administrative-boundaries-and-population-statistics"
-    headers: 1
+    format: "csv"
     adm_cols:
       - "alpha_3"
       - "ADM1_PCODE"
@@ -145,7 +142,6 @@ scraper_subnational:
     source: "HOT"
     format: "csv"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-266S0iZDEvcQmxC2i7LNHWi4fUXtDkrwp8D6NMyHArxnegAYO9XXVnhuHaWvdxaoZTq7M6yGLaPX/pub?gid=1620744216&single=true&output=csv"
-    headers: 1
     adm_cols:
       - "alpha_3"
       - "ADM1_PCODE"
