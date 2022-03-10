@@ -44,8 +44,7 @@ scraper_national:
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
     format: "csv"
     headers: 2
-    adm_cols:
-      - "Country"
+    adm_single: "UKR"
     date_col: "Date"
     date_type: "date"
     input_cols:
