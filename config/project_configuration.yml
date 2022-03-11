@@ -3,6 +3,7 @@ tabs:
   national: "NationalData"
   subnational: "SubnationalData"
   refugees_series: "RefugeesSeries"
+  fatalities: "Fatalities"
   sources: "Sources"
 
 
@@ -138,8 +139,8 @@ scraper_subnational:
       - "#population"
   health_facilities:
     source: "HOT"
-    format: "csv"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-266S0iZDEvcQmxC2i7LNHWi4fUXtDkrwp8D6NMyHArxnegAYO9XXVnhuHaWvdxaoZTq7M6yGLaPX/pub?gid=1620744216&single=true&output=csv"
+    format: "csv"
     adm_cols:
       - "alpha_3"
       - "ADM1_PCODE"
@@ -149,6 +150,12 @@ scraper_subnational:
       - "NoHealthFacilities"
     output_hxltags:
       - "#loc+count+health"
+
+acled:
+  source: "ACLED"
+  source_url: "https://acleddata.com/ukraine-crisis/#dash"
+  url: "https://api.acleddata.com/acled/read.csv?iso=804&year=%d&limit=0"
+  start_date: "2022-02-04"
 
 geojson:
   dataset: "ukraine-border-crossings"

@@ -10,9 +10,8 @@ from scrapers.utilities.update_tabs import (
     update_subnational,
 )
 
+from .acled import ACLED
 from .fts import FTS
-
-# from .unhcr import UNHCR
 from .unhcr import UNHCR
 
 logger = logging.getLogger(__name__)
@@ -61,10 +60,14 @@ def get_indicators(
         )
     fts = FTS(configuration["fts"], today, countries, basic_auths)
     unhcr = UNHCR(configuration["unhcr"], today, outputs, countries, downloader)
+    acled = ACLED(
+        configuration["acled"], today, outputs, downloader, other_auths
+    )
     runner.add_customs(
         (
             fts,
             unhcr,
+            acled,
         )
     )
     runner.run(

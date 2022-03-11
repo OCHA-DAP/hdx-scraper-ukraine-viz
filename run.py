@@ -182,17 +182,17 @@ if __name__ == "__main__":
     if ba is None:
         ba = getenv("BASIC_AUTHS")
     if ba:
-        for keyvalue in ba.split(","):
-            key, value = keyvalue.split(":")
-            basic_auths[key] = value
+        for namevalue in ba.split(","):
+            scraper_name, value = namevalue.split(":")
+            basic_auths[scraper_name] = value
     other_auths = dict()
     oa = args.other_auths
     if oa is None:
         oa = getenv("OTHER_AUTHS")
     if oa:
-        for keyvalue in oa.split(","):
-            key, value = keyvalue.split(":")
-            other_auths[key] = value
+        for namevalue in oa.split(","):
+            scraper_name, value = namevalue.split(":")
+            other_auths[scraper_name] = value
     if args.countries_override:
         countries_override = args.countries_override.split(",")
     else:
