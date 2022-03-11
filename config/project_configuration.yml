@@ -155,7 +155,7 @@ acled:
   source: "ACLED"
   source_url: "https://acleddata.com/ukraine-crisis/#dash"
   url: "https://api.acleddata.com/acled/read.csv?iso=804&year=%d&limit=0"
-  start_date: "2022-02-04"
+  start_date: "2022-02-24"
 
 geojson:
   dataset: "ukraine-border-crossings"
