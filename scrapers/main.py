@@ -3,16 +3,16 @@ import logging
 from hdx.location.adminone import AdminOne
 from hdx.location.country import Country
 from hdx.scraper.runner import Runner
-from scrapers.utilities.update_tabs import (
+
+from .acled import ACLED
+from .fts import FTS
+from .unhcr import UNHCR
+from .utilities.update_tabs import (
     update_national,
     update_regional,
     update_sources,
     update_subnational,
 )
-
-from .acled import ACLED
-from .fts import FTS
-from .unhcr import UNHCR
 
 logger = logging.getLogger(__name__)
 
@@ -60,9 +60,7 @@ def get_indicators(
         )
     fts = FTS(configuration["fts"], today, countries, basic_auths)
     unhcr = UNHCR(configuration["unhcr"], today, outputs, countries, downloader)
-    acled = ACLED(
-        configuration["acled"], today, outputs, downloader, other_auths
-    )
+    acled = ACLED(configuration["acled"], today, outputs, downloader, other_auths)
     runner.add_customs(
         (
             fts,

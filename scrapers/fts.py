@@ -284,4 +284,3 @@ class FTS(BaseScraper):
         source = list(self.sources["national"][0])
         source[1] = date
         self.sources["national"][0] = tuple(source)
-
