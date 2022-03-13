@@ -91,7 +91,6 @@ scraper_national:
           Budget: "float(Budget)"
         sum_cols:
           - formula: "Budget"
-            mustbepopulated: False
         output_cols:
           - "CBPFFunding"
         output_hxltags:
@@ -103,7 +102,6 @@ scraper_national:
           Budget: "float(Budget)"
         sum_cols:
           - formula: "Budget"
-            mustbepopulated: False
         output_cols:
           - "CERFFunding"
         output_hxltags:
@@ -155,10 +153,25 @@ scraper_subnational:
       - "NoHealthFacilities"
     output_hxltags:
       - "#loc+count+health"
+  idps:
+    dataset: "ukraine-idp-estimates"
+    format: "xlsx"
+    sheet: "Dataset"
+    adm_cols:
+      - ~
+      - "admin1Pcode"
+    input_cols:
+      - "IDP estimation"
+    sum_cols:
+      - formula: "IDP estimation"
+    output_cols:
+      - "IDP estimation"
+    output_hxltags:
+      - "#affected+idps"
 
 acled:
   source: "ACLED"
-  source_url: "https://acleddata.com/ukraine-crisis/#dash"
+  source_url: "https://acleddata.com/ukraine-crisis/"
   url: "https://api.acleddata.com/acled/read.csv?iso=804&year=%d&limit=0"
 
 geojson:

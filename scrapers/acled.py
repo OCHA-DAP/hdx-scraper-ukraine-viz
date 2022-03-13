@@ -32,13 +32,13 @@ class ACLED(BaseScraper):
         self.today = today
         self.outputs = outputs
         self.downloader = downloader
-        self.auth = other_auths[self.name]
+        self.other_auths = other_auths
 
     def run(self):
         years = range(self.start_date.year, self.today.year + 1)
         iterables = list()
         for year in years:
-            url = f"{self.datasetinfo['url'] % year}&{self.auth}"
+            url = f"{self.datasetinfo['url'] % year}&{self.other_auths[self.name]}"
             headers, iterator = self.downloader.get_tabular_rows(
                 url,
                 dict_form=True,
