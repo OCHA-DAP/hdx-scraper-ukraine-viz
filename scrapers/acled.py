@@ -24,16 +24,18 @@ hxltags = {
 
 
 class ACLED(BaseScraper):
-    def __init__(self, datasetinfo, today, outputs, downloader, other_auths):
+    def __init__(
+        self, datasetinfo, start_date, today, outputs, downloader, other_auths
+    ):
         super().__init__("acled", datasetinfo, dict())
+        self.start_date = start_date
         self.today = today
         self.outputs = outputs
         self.downloader = downloader
         self.auth = other_auths[self.name]
 
     def run(self):
-        start_date = parse_date(self.datasetinfo["start_date"])
-        years = range(start_date.year, self.today.year + 1)
+        years = range(self.start_date.year, self.today.year + 1)
         iterables = list()
         for year in years:
             url = f"{self.datasetinfo['url'] % year}&{self.auth}"
@@ -46,7 +48,7 @@ class ACLED(BaseScraper):
         rows = [list(hxltags.keys()), list(hxltags.values())]
         for inrow in chain.from_iterable(iterables):
             date = parse_date(inrow["event_date"])
-            if date < start_date:
+            if date < self.start_date:
                 continue
             if date > latest_date:
                 latest_date = date
@@ -58,3 +60,14 @@ class ACLED(BaseScraper):
         for output in self.outputs.values():
             output.update_tab(tabname, rows)
         self.datasetinfo["date"] = latest_date
+
+    def add_sources(self):
+        latest_date = self.datasetinfo["date"].strftime("%Y-%m-%d")
+        self.sources["national"] = [
+            (
+                "#date+latest+acled",
+                latest_date,
+                self.datasetinfo["source"],
+                self.datasetinfo["source_url"],
+            )
+        ]

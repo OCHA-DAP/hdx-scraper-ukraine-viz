@@ -16,8 +16,13 @@ json:
   filepath: "all.json"
 
 additional_sources:
+  - indicator: "#date+start+conflict"
+    date: "2022-02-24"
+    source: "Meduza"
+    source_url: "https://meduza.io/en/news/2022/02/24/putin-announces-start-of-military-operation-in-eastern-ukraine"
   - indicator: "#geojson"
     dataset: "ukraine-border-crossings"
+    source: "Wikipedia"
 
 # national
 scraper_national:
@@ -155,7 +160,6 @@ acled:
   source: "ACLED"
   source_url: "https://acleddata.com/ukraine-crisis/#dash"
   url: "https://api.acleddata.com/acled/read.csv?iso=804&year=%d&limit=0"
-  start_date: "2022-02-24"
 
 geojson:
   dataset: "ukraine-border-crossings"

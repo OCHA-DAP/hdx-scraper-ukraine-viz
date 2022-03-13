@@ -3,6 +3,7 @@ import logging
 from hdx.location.adminone import AdminOne
 from hdx.location.country import Country
 from hdx.scraper.runner import Runner
+from hdx.utilities.dateparse import parse_date
 
 from .acled import ACLED
 from .fts import FTS
@@ -52,6 +53,7 @@ def get_indicators(
         errors_on_exit=errors_on_exit,
         scrapers_to_run=scrapers_to_run,
     )
+    start_date = parse_date(configuration["additional_sources"][0]["date"])
     configurable_scrapers = dict()
     for level in ("national", "subnational"):
         suffix = f"_{level}"
@@ -60,7 +62,9 @@ def get_indicators(
         )
     fts = FTS(configuration["fts"], today, countries, basic_auths)
     unhcr = UNHCR(configuration["unhcr"], today, outputs, countries, downloader)
-    acled = ACLED(configuration["acled"], today, outputs, downloader, other_auths)
+    acled = ACLED(
+        configuration["acled"], start_date, today, outputs, downloader, other_auths
+    )
     runner.add_customs(
         (
             fts,

@@ -58,7 +58,7 @@ def update_subnational(runner, adminone, outputs):
 
 
 def update_sources(runner, configuration, today, outputs):
-    sources = runner.get_sources()
+    sources = list()
     for sourceinfo in configuration["additional_sources"]:
         date = sourceinfo.get("date")
         if date is None:
@@ -76,4 +76,5 @@ def update_sources(runner, configuration, today, outputs):
             if source_url is None:
                 source_url = dataset.get_hdx_url()
         sources.append((sourceinfo["indicator"], date, source, source_url))
+    sources.extend(runner.get_sources())
     update_tab(outputs, "sources", list(sources_headers) + sources)
