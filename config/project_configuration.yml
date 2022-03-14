@@ -106,6 +106,19 @@ scraper_national:
           - "CERFFunding"
         output_hxltags:
           - "#value+cerf+funding+total+usd"
+  idps:
+    dataset: "ukraine-idp-estimates"
+    format: "xlsx"
+    sheet: "Dataset"
+    adm_single: "UKR"
+    input_cols:
+      - "IDP estimation"
+    sum_cols:
+      - formula: "IDP estimation"
+    output_cols:
+      - "IDP estimation"
+    output_hxltags:
+      - "#affected+idps"
 
 fts:
   source: "OCHA"
