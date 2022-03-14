@@ -44,6 +44,19 @@ scraper_national:
       - "Population"
     output_hxltags:
       - "#population"
+  idps:
+    dataset: "ukraine-idp-estimates"
+    format: "xlsx"
+    sheet: "Dataset"
+    adm_single: "UKR"
+    input_cols:
+      - "IDP estimation"
+    sum_cols:
+      - formula: "IDP estimation"
+    output_cols:
+      - "IDP estimation"
+    output_hxltags:
+      - "#affected+idps"
   casualties:
     source: "OHCHR"
     source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
@@ -106,19 +119,6 @@ scraper_national:
           - "CERFFunding"
         output_hxltags:
           - "#value+cerf+funding+total+usd"
-  idps:
-    dataset: "ukraine-idp-estimates"
-    format: "xlsx"
-    sheet: "Dataset"
-    adm_single: "UKR"
-    input_cols:
-      - "IDP estimation"
-    sum_cols:
-      - formula: "IDP estimation"
-    output_cols:
-      - "IDP estimation"
-    output_hxltags:
-      - "#affected+idps"
 
 fts:
   source: "OCHA"
@@ -153,19 +153,6 @@ scraper_subnational:
       - "Population"
     output_hxltags:
       - "#population"
-  health_facilities:
-    source: "HOT"
-    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-266S0iZDEvcQmxC2i7LNHWi4fUXtDkrwp8D6NMyHArxnegAYO9XXVnhuHaWvdxaoZTq7M6yGLaPX/pub?gid=1620744216&single=true&output=csv"
-    format: "csv"
-    adm_cols:
-      - "alpha_3"
-      - "ADM1_PCODE"
-    input_cols:
-      - "NUMPOINTS"
-    output_cols:
-      - "NoHealthFacilities"
-    output_hxltags:
-      - "#loc+count+health"
   idps:
     dataset: "ukraine-idp-estimates"
     format: "xlsx"
@@ -181,6 +168,19 @@ scraper_subnational:
       - "IDP estimation"
     output_hxltags:
       - "#affected+idps"
+  health_facilities:
+    source: "HOT"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-266S0iZDEvcQmxC2i7LNHWi4fUXtDkrwp8D6NMyHArxnegAYO9XXVnhuHaWvdxaoZTq7M6yGLaPX/pub?gid=1620744216&single=true&output=csv"
+    format: "csv"
+    adm_cols:
+      - "alpha_3"
+      - "ADM1_PCODE"
+    input_cols:
+      - "NUMPOINTS"
+    output_cols:
+      - "NoHealthFacilities"
+    output_hxltags:
+      - "#loc+count+health"
 
 acled:
   source: "ACLED"
