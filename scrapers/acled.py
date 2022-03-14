@@ -50,6 +50,14 @@ class ACLED(BaseScraper):
             date = parse_date(inrow["event_date"])
             if date < self.start_date:
                 continue
+            event_type = inrow["event_type"].lower()
+            if event_type in ("protests", "strategic developments"):
+                continue
+            if (
+                event_type == "riots"
+                and inrow["sub_event_type"].lower() == "violent demonstration"
+            ):
+                continue
             if date > latest_date:
                 latest_date = date
             row = list()
