@@ -71,7 +71,7 @@ class ACLED(BaseScraper):
 
     def add_sources(self):
         latest_date = self.datasetinfo["date"].strftime("%Y-%m-%d")
-        self.sources["national"] = [
+        self.sources["fatalities"] = [
             (
                 "#date+latest+acled",
                 latest_date,
