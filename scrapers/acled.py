@@ -27,6 +27,7 @@ class ACLED(BaseScraper):
     def __init__(
         self, datasetinfo, start_date, today, outputs, downloader, other_auths
     ):
+        # ACLED outputs to its own tab "fatalities" so there are no headers
         super().__init__("acled", datasetinfo, dict())
         self.start_date = start_date
         self.today = today
