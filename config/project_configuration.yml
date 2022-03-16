@@ -124,9 +124,9 @@ fts:
   source: "OCHA"
   source_url:
     "#inneed+ind": "https://data.humdata.org/dataset/ukraine-key-figures-2022"
-    "#value+funding+rrp+required+usd": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzvb2ZKLS95aToa_SBYfsZIFhcL_0rvfir5kSUNzl7KNY8UIAVH9AyBZ2I-d5yAZly4l6S15bCVM_d/pub?gid=918365211&single=true&output=csv"
-    "#value+funding+rrp+total+usd": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzvb2ZKLS95aToa_SBYfsZIFhcL_0rvfir5kSUNzl7KNY8UIAVH9AyBZ2I-d5yAZly4l6S15bCVM_d/pub?gid=918365211&single=true&output=csv"
-    "#value+funding+rrp+pct": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzvb2ZKLS95aToa_SBYfsZIFhcL_0rvfir5kSUNzl7KNY8UIAVH9AyBZ2I-d5yAZly4l6S15bCVM_d/pub?gid=918365211&single=true&output=csv"
+    "#value+funding+rrp+required+usd": "https://data.humdata.org/dataset/interagency-response-plans"
+    "#value+funding+rrp+total+usd": "https://data.humdata.org/dataset/interagency-response-plans"
+    "#value+funding+rrp+pct": "https://data.humdata.org/dataset/interagency-response-plans"
     "default_url": "https://data.humdata.org/dataset/fts-requirements-and-funding-data-for-ukraine"
   url: "https://api.hpc.tools/v"
 
