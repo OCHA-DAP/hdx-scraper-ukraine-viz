@@ -3,6 +3,7 @@ tabs:
   national: "NationalData"
   subnational: "SubnationalData"
   refugees_series: "RefugeesSeries"
+  idps_macro: "IDPsMacro"
   fatalities: "Fatalities"
   sources: "Sources"
 
@@ -189,6 +190,13 @@ acled:
 
 geojson:
   dataset: "ukraine-border-crossings"
+
+idps_macro:
+  dataset: "ukraine-idp-estimates"
+  resource: "[Update] IDP_estimation_16_03_2022 - UNHCR-Protection Cluster"
+  format: "xlsx"
+  sheet: "Current location of IDPs"
+  headers: 2
 
 countries:
   - UKR

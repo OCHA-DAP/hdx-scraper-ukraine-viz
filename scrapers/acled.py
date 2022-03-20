@@ -71,12 +71,4 @@ class ACLED(BaseScraper):
         self.datasetinfo["date"] = latest_date
 
     def add_sources(self):
-        latest_date = self.datasetinfo["date"].strftime("%Y-%m-%d")
-        self.sources["fatalities"] = [
-            (
-                "#date+latest+acled",
-                latest_date,
-                self.datasetinfo["source"],
-                self.datasetinfo["source_url"],
-            )
-        ]
+        self.add_hxltag_source("fatalities", "#date+latest+acled")

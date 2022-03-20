@@ -7,6 +7,7 @@ from hdx.utilities.dateparse import parse_date
 
 from .acled import ACLED
 from .fts import FTS
+from .idps_macro import IDPsMacro
 from .unhcr import UNHCR
 from .utilities.update_tabs import (
     update_national,
@@ -65,11 +66,13 @@ def get_indicators(
     acled = ACLED(
         configuration["acled"], start_date, today, outputs, downloader, other_auths
     )
+    idps_macro = IDPsMacro(configuration["idps_macro"], today, outputs, downloader)
     runner.add_customs(
         (
             fts,
             unhcr,
             acled,
+            idps_macro,
         )
     )
     runner.run(
