@@ -45,19 +45,6 @@ scraper_national:
       - "Population"
     output_hxltags:
       - "#population"
-  idps:
-    dataset: "ukraine-idp-estimates"
-    format: "xlsx"
-    sheet: "Dataset"
-    adm_single: "UKR"
-    input_cols:
-      - "IDP estimation"
-    sum_cols:
-      - formula: "IDP estimation"
-    output_cols:
-      - "IDP estimation"
-    output_hxltags:
-      - "#affected+idps"
   casualties:
     source: "OHCHR"
     source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
@@ -154,21 +141,6 @@ scraper_subnational:
       - "Population"
     output_hxltags:
       - "#population"
-  idps:
-    dataset: "ukraine-idp-estimates"
-    format: "xlsx"
-    sheet: "Dataset"
-    adm_cols:
-      - ~
-      - "admin1Pcode"
-    input_cols:
-      - "IDP estimation"
-    sum_cols:
-      - formula: "IDP estimation"
-    output_cols:
-      - "IDP estimation"
-    output_hxltags:
-      - "#affected+idps"
   health_facilities:
     source: "HOT"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-266S0iZDEvcQmxC2i7LNHWi4fUXtDkrwp8D6NMyHArxnegAYO9XXVnhuHaWvdxaoZTq7M6yGLaPX/pub?gid=1620744216&single=true&output=csv"
@@ -191,9 +163,8 @@ acled:
 geojson:
   dataset: "ukraine-border-crossings"
 
-idps_macro:
+idps:
   dataset: "ukraine-idp-estimates"
-  resource: "[Update] IDP_estimation_16_03_2022 - UNHCR-Protection Cluster"
   format: "xlsx"
   sheet: "Current location of IDPs"
   headers: 2

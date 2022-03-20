@@ -7,7 +7,7 @@ from hdx.utilities.dateparse import parse_date
 
 from .acled import ACLED
 from .fts import FTS
-from .idps_macro import IDPsMacro
+from .idps import IDPs
 from .unhcr import UNHCR
 from .utilities.update_tabs import (
     update_national,
@@ -63,16 +63,16 @@ def get_indicators(
         )
     fts = FTS(configuration["fts"], today, countries, basic_auths)
     unhcr = UNHCR(configuration["unhcr"], today, outputs, countries, downloader)
+    idps = IDPs(configuration["idps"], today, outputs, downloader)
     acled = ACLED(
         configuration["acled"], start_date, today, outputs, downloader, other_auths
     )
-    idps_macro = IDPsMacro(configuration["idps_macro"], today, outputs, downloader)
     runner.add_customs(
         (
             fts,
             unhcr,
+            idps,
             acled,
-            idps_macro,
         )
     )
     runner.run(
@@ -87,6 +87,7 @@ def get_indicators(
         update_regional(runner, outputs)
     if "national" in tabs:
         national_names = configurable_scrapers["national"]
+        national_names.insert(1, "idps")
         national_names.insert(1, "unhcr")
         national_names.insert(len(national_names) - 1, "fts")
         update_national(
