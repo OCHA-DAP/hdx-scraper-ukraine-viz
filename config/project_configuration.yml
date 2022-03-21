@@ -18,7 +18,7 @@ json:
 
 additional_sources:
   - indicator: "#date+start+conflict"
-    date: "2022-02-24"
+    source_date: "2022-02-24"
     source: "Meduza"
     source_url: "https://meduza.io/en/news/2022/02/24/putin-announces-start-of-military-operation-in-eastern-ukraine"
   - indicator: "#geojson"
@@ -35,15 +35,15 @@ scraper_national:
     sheet: "Data"
     headers: 3
     prefilter: "Value != ''"
-    adm_cols:
+    admin:
       - "Country Code"
-    date_col: "Year"
+    date: "Year"
     date_type: "year"
-    input_cols:
+    input:
       - "Value"
-    output_cols:
+    output:
       - "Population"
-    output_hxltags:
+    output_hxl:
       - "#population"
   casualties:
     source: "OHCHR"
@@ -51,16 +51,16 @@ scraper_national:
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
     format: "csv"
     headers: 2
-    adm_single: "UKR"
-    date_col: "Date"
+    admin_single: "UKR"
+    date: "Date"
     date_type: "date"
-    input_cols:
+    input:
       - "Civilian casualities(OHCHR) - Killed"
       - "Civilian casualities(OHCHR) - Injured"
-    output_cols:
+    output:
       - "CiviliansKilled"
       - "CiviliansInjured"
-    output_hxltags:
+    output_hxl:
       - "#affected+killed"
       - "#affected+injured"
   allocations:
@@ -77,35 +77,35 @@ scraper_national:
       reverse: True
       keys:
         - "AllocationYear"
-    date_col: "AllocationYear"
+    date: "AllocationYear"
     date_type: "year"
     single_maxdate: True
-    adm_cols:
+    admin:
       - "CountryCode"
     filter_cols:
       - "FundType"
     subsets:
       - filter: "FundType == 'CBPF'"
-        input_cols:
+        input:
           - "Budget"
-        input_transforms:
+        transform:
           Budget: "float(Budget)"
-        sum_cols:
+        sum:
           - formula: "Budget"
-        output_cols:
+        output:
           - "CBPFFunding"
-        output_hxltags:
+        output_hxl:
           - "#value+cbpf+funding+total+usd"
       - filter: "FundType == 'CERF'"
-        input_cols:
+        input:
           - "Budget"
-        input_transforms:
+        transform:
           Budget: "float(Budget)"
-        sum_cols:
+        sum:
           - formula: "Budget"
-        output_cols:
+        output:
           - "CERFFunding"
-        output_hxltags:
+        output_hxl:
           - "#value+cerf+funding+total+usd"
 
 fts:
@@ -130,29 +130,29 @@ scraper_subnational:
     dataset: "worldpop-population-counts-for-ukraine"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_uBOV_uRDSxOggfBus_pkCs6Iw9lm0nAxzwG14YF_frpm13WPKiM1oNnQ9zrUA/pub?gid=1565793974&single=true&output=csv"
     format: "csv"
-    adm_cols:
+    admin:
       - "alpha_3"
       - "ADM1_PCODE"
-    input_cols:
+    input:
       - "POPULATION"
-    input_transforms:
+    transform:
       "POPULATION": "get_numeric_if_possible(POPULATION)"
-    output_cols:
+    output:
       - "Population"
-    output_hxltags:
+    output_hxl:
       - "#population"
   health_facilities:
     source: "HOT"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-266S0iZDEvcQmxC2i7LNHWi4fUXtDkrwp8D6NMyHArxnegAYO9XXVnhuHaWvdxaoZTq7M6yGLaPX/pub?gid=1620744216&single=true&output=csv"
     format: "csv"
-    adm_cols:
+    admin:
       - "alpha_3"
       - "ADM1_PCODE"
-    input_cols:
+    input:
       - "NUMPOINTS"
-    output_cols:
+    output:
       - "NoHealthFacilities"
-    output_hxltags:
+    output_hxl:
       - "#loc+count+health"
 
 acled:

@@ -53,4 +53,4 @@ class UNHCR(BaseScraper):
         tabname = "refugees_series"
         for output in self.outputs.values():
             output.update_tab(tabname, rows)
-        self.datasetinfo["date"] = self.today
+        self.datasetinfo["source_date"] = self.today

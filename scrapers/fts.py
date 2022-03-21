@@ -275,7 +275,7 @@ class FTS(BaseScraper):
             regional_values[0]["value"] = regional_plan["requirements"]
             regional_values[1]["value"] = regional_plan["funding"]
             regional_values[2]["value"] = regional_plan["percentfunded"]
-            self.datasetinfo["date"] = self.today
+            self.datasetinfo["source_date"] = self.today
             logger.info("Processed FTS")
 
     def add_sources(self):

@@ -54,7 +54,7 @@ def get_indicators(
         errors_on_exit=errors_on_exit,
         scrapers_to_run=scrapers_to_run,
     )
-    start_date = parse_date(configuration["additional_sources"][0]["date"])
+    start_date = parse_date(configuration["additional_sources"][0]["source_date"])
     configurable_scrapers = dict()
     for level in ("national", "subnational"):
         suffix = f"_{level}"

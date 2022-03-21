@@ -68,7 +68,7 @@ class ACLED(BaseScraper):
         tabname = "fatalities"
         for output in self.outputs.values():
             output.update_tab(tabname, rows)
-        self.datasetinfo["date"] = latest_date
+        self.datasetinfo["source_date"] = latest_date
 
     def add_sources(self):
         self.add_hxltag_source("fatalities", "#date+latest+acled")
