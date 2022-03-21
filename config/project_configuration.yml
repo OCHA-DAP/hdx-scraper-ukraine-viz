@@ -28,7 +28,7 @@ additional_sources:
 # national
 scraper_national:
   population:
-    source: "WorldPop"
+    source: "WorldPop/UNFPA"
     dataset: "worldpop-population-counts-for-ukraine"
     url: "http://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=excel&dataformat=list"
     format: "xls"
@@ -120,13 +120,13 @@ fts:
 
 unhcr:
   source: "UNHCR"
-  source_url: "https://data2.unhcr.org/en/situations/ukraine"
+  source_url: "https://data.humdata.org/dataset/ukraine-refugee-situation"
   url: "https://data2.unhcr.org/population/get/sublocation?widget_id=283575&sv_id=54&population_group=5459,5460&forcesublocation=0&fromDate=1900-01-01"
   url_series: "https://data2.unhcr.org/population/get/timeseries?widget_id=283577&sv_id=54&population_group=5457&frequency=day&fromDate=1900-01-01"
 
 scraper_subnational:
   population:
-    source: "WorldPop"
+    source: "WorldPop/UNFPA"
     dataset: "worldpop-population-counts-for-ukraine"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_uBOV_uRDSxOggfBus_pkCs6Iw9lm0nAxzwG14YF_frpm13WPKiM1oNnQ9zrUA/pub?gid=1565793974&single=true&output=csv"
     format: "csv"
