@@ -32,9 +32,7 @@ class IDPs(BaseScraper):
         for inrow in iterator:
             idps = int(inrow["# est. IDPs presence per macro-region"])
             total += idps
-            rows.append(
-                (inrow["Macro-region"], idps)
-            )
+            rows.append((inrow["Macro-region"], idps))
         valuedict = self.get_values("national")[0]
         valuedict["UKR"] = total
         tabname = "idps_macro"

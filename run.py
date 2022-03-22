@@ -48,7 +48,11 @@ def parse_args():
         "-nj", "--nojson", default=False, action="store_true", help="Do not update json"
     )
     parser.add_argument(
-        "-ngj", "--nogeojson", default=False, action="store_true", help="Do not update geojson"
+        "-ngj",
+        "--nogeojson",
+        default=False,
+        action="store_true",
+        help="Do not update geojson",
     )
     parser.add_argument(
         "-ba",
