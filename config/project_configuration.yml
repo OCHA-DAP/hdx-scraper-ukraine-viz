@@ -29,7 +29,7 @@ additional_sources:
 scraper_national:
   population:
     source: "WorldPop/UNFPA"
-    dataset: "worldpop-population-counts-for-ukraine"
+    dataset: "gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
     url: "http://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=excel&dataformat=list"
     format: "xls"
     sheet: "Data"
@@ -127,7 +127,7 @@ unhcr:
 scraper_subnational:
   population:
     source: "WorldPop/UNFPA"
-    dataset: "worldpop-population-counts-for-ukraine"
+    dataset: "gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_uBOV_uRDSxOggfBus_pkCs6Iw9lm0nAxzwG14YF_frpm13WPKiM1oNnQ9zrUA/pub?gid=1565793974&single=true&output=csv"
     format: "csv"
     admin:
