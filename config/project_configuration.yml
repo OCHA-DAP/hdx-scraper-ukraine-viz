@@ -46,7 +46,10 @@ scraper_national:
     output_hxl:
       - "#population"
   casualties:
-    source: "OHCHR"
+    source:
+      "default_source": "OHCHR"
+      "#indicator+attacks+healthcare+num": "WHO"
+      "#indicator+attacks+education+num": "Multiple Sources"
     source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
     format: "csv"
@@ -57,12 +60,18 @@ scraper_national:
     input:
       - "Civilian casualities(OHCHR) - Killed"
       - "Civilian casualities(OHCHR) - Injured"
+      - "Attacks on Health Care"
+      - "Attacks on Education Facilities"
     output:
       - "CiviliansKilled"
       - "CiviliansInjured"
+      - "AttacksOnHealthcare"
+      - "AttacksOnEducation"
     output_hxl:
       - "#affected+killed"
       - "#affected+injured"
+      - "#indicator+attacks+healthcare+num"
+      - "#indicator+attacks+education+num"
   allocations:
     source:
       "#value+cbpf+funding+total+usd": "CBPF"
