@@ -82,7 +82,7 @@ scraper_national:
       - "#indicator+attacks+education+num"
   attacks_healthcare:
     source: "WHO"
-    source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
+    source_url: "https://data.humdata.org/dataset/ukraine-who-ssa"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
     format: "csv"
     headers: 2
