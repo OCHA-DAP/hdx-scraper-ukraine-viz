@@ -46,10 +46,7 @@ scraper_national:
     output_hxl:
       - "#population"
   casualties:
-    source:
-      "default_source": "OHCHR"
-      "#indicator+attacks+healthcare+num": "WHO"
-      "#indicator+attacks+education+num": "Multiple Sources"
+    source: "OHCHR"
     source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
     format: "csv"
@@ -60,18 +57,46 @@ scraper_national:
     input:
       - "Civilian casualities(OHCHR) - Killed"
       - "Civilian casualities(OHCHR) - Injured"
-      - "Attacks on Health Care"
-      - "Attacks on Education Facilities"
     output:
       - "CiviliansKilled"
       - "CiviliansInjured"
-      - "AttacksOnHealthcare"
-      - "AttacksOnEducation"
     output_hxl:
       - "#affected+killed"
       - "#affected+injured"
-      - "#indicator+attacks+healthcare+num"
+  attacks_education:
+    source: "Multiple Sources"
+    source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    format: "csv"
+    headers: 2
+    admin_single: "UKR"
+    prefilter: "Attacks on Education Facilities != ''"
+    date: "Date"
+    date_type: "date"
+    use_date: True
+    input:
+      - "Attacks on Education Facilities"
+    output:
+      - "AttacksOnEducation"
+    output_hxl:
       - "#indicator+attacks+education+num"
+  attacks_healthcare:
+    source: "WHO"
+    source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    format: "csv"
+    headers: 2
+    admin_single: "UKR"
+    prefilter: "Attacks on Health Care != ''"
+    date: "Date"
+    date_type: "date"
+    use_date: True
+    input:
+      - "Attacks on Health Care"
+    output:
+      - "AttacksOnHealthcare"
+    output_hxl:
+      - "#indicator+attacks+healthcare+num"
   allocations:
     source:
       "#value+cbpf+funding+total+usd": "CBPF"
