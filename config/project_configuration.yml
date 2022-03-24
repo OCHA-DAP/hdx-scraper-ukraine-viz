@@ -83,16 +83,16 @@ scraper_national:
   attacks_healthcare:
     source: "WHO"
     source_url: "https://data.humdata.org/dataset/ukraine-who-ssa"
-    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    url: "https://proxy.hxlstandard.org/data.csv?tagger-match-all=on&tagger-02-header=reportid&tagger-02-tag=%23meta%2Bid&tagger-03-header=lastmodified&tagger-03-tag=%23date%2Breported&tagger-07-header=country&tagger-07-tag=%23country%2Bname&tagger-08-header=countryiso2code&tagger-08-tag=%23country%2Bcode%2Bv_iso2&tagger-09-header=countryiso3code&tagger-09-tag=%23country%2Bcode&tagger-10-header=attacktimestamp&tagger-10-tag=%23date%2Boccurred&tagger-11-header=classificationid&tagger-11-tag=%23status%2Bcode&tagger-12-header=classification&tagger-12-tag=%23status%2Bname&tagger-13-header=attacktype&tagger-13-tag=%23event%2Btype&tagger-14-header=attacktypeid&tagger-14-tag=%23event%2Bcode&tagger-15-header=victimstotalinjured&tagger-15-tag=%23affected%2Binjured&tagger-16-header=victimstotaldeath&tagger-16-tag=%23affected%2Bkilled&tagger-17-header=hcfacilities&tagger-17-tag=%23event%2Bhcfacilities%2Baffected&tagger-18-header=hctransport&tagger-18-tag=%23event%2Bhctransport%2Baffected&tagger-19-header=hcpersonnel&tagger-19-tag=%23event%2Bhcpersonnel%2Baffected&tagger-20-header=hcsuppliesassets&tagger-20-tag=%23event%2Bhcsuppliesassets%2Baffected&tagger-21-header=hcwarehousestorage&tagger-21-tag=%23event%2Bhcwarehouse%2Baffected&tagger-22-header=hcpatients&tagger-22-tag=%23event%2Bhcpatients%2Baffected&tagger-23-header=hcother&tagger-23-tag=%23event%2Bhcother%2Baffected&tagger-24-header=typeoffacility&tagger-24-tag=%23event%2Bfacility%2Btype&tagger-25-header=facilityother&tagger-25-tag=%23event%2Bfacility%2Bother%2Btype&tagger-26-header=hwabducton&tagger-26-tag=%23affected%2Bhw%2Babducted&tagger-27-header=hwarrest&tagger-27-tag=%23affected%2Bhw%2Barrested&tagger-28-header=hwdetention&tagger-28-tag=%23affected%2Bhw%2Bdetained&tagger-29-header=patientabduction&tagger-29-tag=%23affected%2Bpatient%2Babducted&tagger-30-header=patientarrest&tagger-30-tag=%23affected%2Bpatient%2Barrested&tagger-31-header=patientdetention&tagger-31-tag=%23affected%2Bpatient%2Bdetained&url=https%3A%2F%2Fextranet.who.int%2Fssa%2FRef%2FGetDashboardFullReport%3FCountries%3D229%26Types%3D0%26DaterangeSTART%3D2022-02-24&header-row=1&dest=data_view"
     format: "csv"
-    headers: 2
+    use_hxl: True
     admin_single: "UKR"
-    prefilter: "Attacks on Health Care != ''"
-    date: "Date"
-    date_type: "date"
-    use_date: True
     input:
-      - "Attacks on Health Care"
+      - "#meta+id"
+    transform:
+      "#meta+id": "1"
+    sum:
+      - formula: "#meta+id"
     output:
       - "AttacksOnHealthcare"
     output_hxl:
