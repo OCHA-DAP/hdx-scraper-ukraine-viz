@@ -188,6 +188,19 @@ scraper_subnational:
       - "NoHealthFacilities"
     output_hxl:
       - "#loc+count+health"
+  whowhatwhere:
+    source: "Multiple Sources"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSwZuAI7rAsW1s0yIPPClIYbEMvnAC01P_bsMbR6RtDl4-fR3T0B6qVOW4Xq29W47i20iGeFFft5Ntk/pub?gid=0&single=true&output=csv"
+    format: "csv"
+    admin:
+      - ~
+      - "admin1Pcode"
+    input:
+      - "orgCountRound3"
+    output:
+      - "OrgCountAdm1"
+    output_hxl:
+      - "#org+count+num"
 
 acled:
   source: "ACLED"
