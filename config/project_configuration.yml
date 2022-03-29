@@ -21,6 +21,8 @@ additional_sources:
     source_date: "2022-02-24"
     source: "Meduza"
     source_url: "https://meduza.io/en/news/2022/02/24/putin-announces-start-of-military-operation-in-eastern-ukraine"
+  - indicator: "#event+loc"
+    dataset: "ukraine-hostilities"
   - indicator: "#geojson"
     dataset: "ukraine-border-crossings"
     source: "Multiple Sources"

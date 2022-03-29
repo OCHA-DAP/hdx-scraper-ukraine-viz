@@ -27,6 +27,7 @@ VERSION = 1.0
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument("-hk", "--hdx_key", default=None, help="HDX api key")
     parser.add_argument("-ua", "--user_agent", default=None, help="user agent")
     parser.add_argument("-pp", "--preprefix", default=None, help="preprefix")
     parser.add_argument("-hs", "--hdx_site", default=None, help="HDX site to use")
@@ -152,6 +153,9 @@ def main(
 
 if __name__ == "__main__":
     args = parse_args()
+    hdx_key = args.hdx_key
+    if hdx_key is None:
+        hdx_key = getenv("HDX_KEY")
     user_agent = args.user_agent
     if user_agent is None:
         user_agent = getenv("USER_AGENT")
@@ -203,7 +207,7 @@ if __name__ == "__main__":
         countries_override = None
     facade(
         main,
-        hdx_read_only=True,
+        hdx_key=hdx_key,
         user_agent=user_agent,
         preprefix=preprefix,
         hdx_site=hdx_site,
