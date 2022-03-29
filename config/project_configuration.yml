@@ -21,11 +21,6 @@ additional_sources:
     source_date: "2022-02-24"
     source: "Meduza"
     source_url: "https://meduza.io/en/news/2022/02/24/putin-announces-start-of-military-operation-in-eastern-ukraine"
-  - indicator: "#event+loc"
-    dataset: "ukraine-hostilities"
-  - indicator: "#geojson"
-    dataset: "ukraine-border-crossings"
-    source: "Multiple Sources"
 
 # national
 scraper_national:
@@ -204,13 +199,20 @@ scraper_subnational:
     output_hxl:
       - "#org+count+num"
 
+copyfiles:
+  - dataset: "ukraine-border-crossings"
+    format: "geojson"
+    filename: "UKR_Border_Crossings.geojson"
+    hxltag: "#geojson"
+  - dataset: "ukraine-hostilities"
+    format: "geojson"
+    filename: "UKR_Hostilities.geojson"
+    hxltag: "#event+loc"
+
 acled:
   source: "ACLED"
   source_url: "https://acleddata.com/ukraine-crisis/"
   url: "https://api.acleddata.com/acled/read.csv?iso=804&year=%d&limit=0"
-
-geojson:
-  dataset: "ukraine-border-crossings"
 
 idps:
   dataset: "ukraine-idp-estimates"

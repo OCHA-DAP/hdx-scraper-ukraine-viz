@@ -15,7 +15,6 @@ from hdx.utilities.easy_logging import setup_logging
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
 from hdx.utilities.retriever import Retrieve
-from scrapers.geojson import get_geojson
 from scrapers.main import get_indicators
 
 setup_logging()
@@ -49,11 +48,11 @@ def parse_args():
         "-nj", "--nojson", default=False, action="store_true", help="Do not update json"
     )
     parser.add_argument(
-        "-ngj",
-        "--nogeojson",
+        "-nfc",
+        "--nofilecopy",
         default=False,
         action="store_true",
-        help="Do not update geojson",
+        help="Do not copy files",
     )
     parser.add_argument(
         "-ba",
@@ -89,7 +88,7 @@ def main(
     basic_auths,
     other_auths,
     nojson,
-    nogeojson,
+    nofilecopy,
     countries_override,
     save,
     use_saved,
@@ -141,14 +140,13 @@ def main(
                     scrapers_to_run,
                     basic_auths,
                     other_auths,
+                    nofilecopy,
                     countries_override,
                     errors_on_exit,
                 )
                 jsonout.add_additional_json(downloader, today=today)
                 jsonout.save(countries_to_save=countries_to_save)
                 excelout.save()
-                if not nogeojson:
-                    get_geojson(configuration)
 
 
 if __name__ == "__main__":
@@ -220,7 +218,7 @@ if __name__ == "__main__":
         basic_auths=basic_auths,
         other_auths=other_auths,
         nojson=args.nojson,
-        nogeojson=args.nogeojson,
+        nofilecopy=args.nofilecopy,
         countries_override=countries_override,
         save=args.save,
         use_saved=args.use_saved,

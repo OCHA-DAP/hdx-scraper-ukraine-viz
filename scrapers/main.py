@@ -6,6 +6,7 @@ from hdx.scraper.runner import Runner
 from hdx.utilities.dateparse import parse_date
 
 from .acled import ACLED
+from .filecopier import FileCopier
 from .fts import FTS
 from .idps import IDPs
 from .unhcr import UNHCR
@@ -28,6 +29,7 @@ def get_indicators(
     scrapers_to_run=None,
     basic_auths=dict(),
     other_auths=dict(),
+    nofilecopy=False,
     countries_override=None,
     errors_on_exit=None,
     use_live=True,
@@ -55,6 +57,11 @@ def get_indicators(
         scrapers_to_run=scrapers_to_run,
     )
     start_date = parse_date(configuration["additional_sources"][0]["source_date"])
+    if nofilecopy:
+        prioritise_scrapers = list()
+    else:
+        filecopiers = FileCopier.get_scrapers(configuration["copyfiles"], today)
+        prioritise_scrapers = runner.add_customs(filecopiers)
     configurable_scrapers = dict()
     for level in ("national", "subnational"):
         suffix = f"_{level}"
@@ -75,13 +82,14 @@ def get_indicators(
             acled,
         )
     )
-    runner.run(
-        prioritise_scrapers=(
+    prioritise_scrapers.extend(
+        [
             "population_national",
             "population_subnational",
             "population_regional",
-        )
+        ]
     )
+    runner.run(prioritise_scrapers=prioritise_scrapers)
 
     if "regional" in tabs:
         update_regional(runner, outputs)

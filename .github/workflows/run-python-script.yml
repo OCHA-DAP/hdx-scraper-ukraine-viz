@@ -35,7 +35,7 @@ jobs:
       if: always()
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        file_pattern: all.json UKR_Border_Crossings.geojson
+        file_pattern: all.json *.geojson
         commit_message: automatic - Data bundle updated
         push_options: '--force'
         skip_dirty_check: false
