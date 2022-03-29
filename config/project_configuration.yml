@@ -187,17 +187,23 @@ scraper_subnational:
       - "#loc+count+health"
   whowhatwhere:
     source: "Multiple Sources"
-    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSwZuAI7rAsW1s0yIPPClIYbEMvnAC01P_bsMbR6RtDl4-fR3T0B6qVOW4Xq29W47i20iGeFFft5Ntk/pub?gid=0&single=true&output=csv"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMZQd0eSzgcdPnUfcdJvX4Y3gin8TjhEs-EmxoIAsl9ex5Zmxf09fZQKQJhTqFbG6WBazPRIx5qRop/pub?gid=594573511&single=true&output=csv"
     format: "csv"
     admin:
       - ~
-      - "admin1Pcode"
+      - "ADMIN1_ID"
     input:
-      - "orgCountRound3"
+      - "Number of Organisations"
+      - "People Reached"
+      - "Clusters Present"
     output:
-      - "OrgCountAdm1"
+      - "OrgCount"
+      - "PeopleReached"
+      - "ClustersPresent"
     output_hxl:
       - "#org+count+num"
+      - "#reached+ind"
+      - "#sector+cluster+names"
 
 copyfiles:
   - dataset: "ukraine-border-crossings"
