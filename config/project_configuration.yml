@@ -94,6 +94,38 @@ scraper_national:
       - "AttacksOnHealthcare"
     output_hxl:
       - "#indicator+attacks+healthcare+num"
+  numberoforgs:
+    dataset: "ukraine-who-does-what-where-3w"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    format: "csv"
+    headers: 2
+    admin_single: "UKR"
+    prefilter: "Number of Organisations != ''"
+    date: "Date"
+    date_type: "date"
+    use_date: True
+    input:
+      - "Number of Organisations"
+    output:
+      - "OrgCount"
+    output_hxl:
+      - "#org+count+num"
+  numberreached:
+    dataset: "ukraine-who-does-what-where-3w"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    format: "csv"
+    headers: 2
+    admin_single: "UKR"
+    prefilter: "Number of People Reached != ''"
+    date: "Date"
+    date_type: "date"
+    use_date: True
+    input:
+      - "Number of People Reached"
+    output:
+      - "PeopleReached"
+    output_hxl:
+      - "#reached+ind"
   allocations:
     source:
       "#value+cbpf+funding+total+usd": "CBPF"
@@ -186,7 +218,7 @@ scraper_subnational:
     output_hxl:
       - "#loc+count+health"
   whowhatwhere:
-    source: "Multiple Sources"
+    dataset: "ukraine-who-does-what-where-3w"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMZQd0eSzgcdPnUfcdJvX4Y3gin8TjhEs-EmxoIAsl9ex5Zmxf09fZQKQJhTqFbG6WBazPRIx5qRop/pub?gid=594573511&single=true&output=csv"
     format: "csv"
     admin:
