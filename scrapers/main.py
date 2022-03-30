@@ -9,6 +9,7 @@ from .acled import ACLED
 from .filecopier import FileCopier
 from .fts import FTS
 from .idps import IDPs
+from .timeseries import TimeSeries
 from .unhcr import UNHCR
 from .utilities.update_tabs import (
     update_national,
@@ -82,6 +83,10 @@ def get_indicators(
             acled,
         )
     )
+    timeseries = TimeSeries.get_scrapers(
+        configuration["timeseries"], today, outputs, downloader
+    )
+    runner.add_customs(timeseries)
     prioritise_scrapers.extend(
         [
             "population_national",

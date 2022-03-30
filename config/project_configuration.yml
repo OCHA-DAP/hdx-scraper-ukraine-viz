@@ -5,6 +5,7 @@ tabs:
   refugees_series: "RefugeesSeries"
   idps_macro: "IDPsMacro"
   fatalities: "Fatalities"
+  timeseries_casualties: "Casualties"
   sources: "Sources"
 
 
@@ -236,6 +237,27 @@ scraper_subnational:
       - "#org+count+num"
       - "#reached+ind"
       - "#sector+cluster+names"
+
+timeseries:
+  casualties:
+    source: "OHCHR"
+    source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
+    dataset: "ukraine-who-does-what-where-3w"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    format: "csv"
+    headers: 2
+    date: "Date"
+    date_type: "date"
+    date_hxl: "#date"
+    input:
+      - "Civilian casualities(OHCHR) - Killed"
+      - "Civilian casualities(OHCHR) - Injured"
+    output:
+      - "CiviliansKilled"
+      - "CiviliansInjured"
+    output_hxl:
+      - "#affected+killed"
+      - "#affected+injured"
 
 copyfiles:
   - dataset: "ukraine-border-crossings"
