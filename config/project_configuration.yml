@@ -55,6 +55,9 @@ scraper_national:
     input:
       - "Civilian casualities(OHCHR) - Killed"
       - "Civilian casualities(OHCHR) - Injured"
+    transform:
+      "Civilian casualities(OHCHR) - Killed": "get_numeric_if_possible(Civilian casualities(OHCHR) - Killed)"
+      "Civilian casualities(OHCHR) - Injured": "get_numeric_if_possible(Civilian casualities(OHCHR) - Injured)"
     output:
       - "CiviliansKilled"
       - "CiviliansInjured"
@@ -74,6 +77,8 @@ scraper_national:
     use_date: True
     input:
       - "Attacks on Education Facilities"
+    transform:
+      "Attacks on Education Facilities": "get_numeric_if_possible(Attacks on Education Facilities)"
     output:
       - "AttacksOnEducation"
     output_hxl:
@@ -91,6 +96,8 @@ scraper_national:
     use_date: True
     input:
       - "Attacks on Health Care"
+    transform:
+      "Attacks on Health Care": "get_numeric_if_possible(Attacks on Health Care)"
     output:
       - "AttacksOnHealthcare"
     output_hxl:
@@ -107,6 +114,8 @@ scraper_national:
     use_date: True
     input:
       - "Number of Organisations"
+    transform:
+      "Number of Organisations": "get_numeric_if_possible(Number of Organisations)"
     output:
       - "OrgCount"
     output_hxl:
@@ -123,6 +132,8 @@ scraper_national:
     use_date: True
     input:
       - "Number of People Reached"
+    transform:
+      "Number of People Reached": "get_numeric_if_possible(Number of People Reached)"
     output:
       - "PeopleReached"
     output_hxl:
