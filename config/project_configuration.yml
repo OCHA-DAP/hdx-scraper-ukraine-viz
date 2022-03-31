@@ -229,6 +229,8 @@ scraper_subnational:
       - "Number of Organisations"
       - "People Reached"
       - "Clusters Present"
+    transform:
+      "Clusters Present": "regex.sub(r'\\b(\\w+)\\b\\s*,\\s*(?=.*\\1)', '', regex.sub(r':[^,]*?(,|\\Z)', '\\g<1>', Clusters Present))"
     output:
       - "OrgCount"
       - "PeopleReached"
