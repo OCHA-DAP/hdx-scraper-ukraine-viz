@@ -1,2 +1,2 @@
-hdx-python-scraper==1.6.4
+hdx-python-scraper==1.6.5
 
