@@ -32,7 +32,7 @@ scraper_national:
     format: "xls"
     sheet: "Data"
     headers: 3
-    prefilter: "Value != ''"
+    prefilter: "Value is not None"
     admin:
       - "Country Code"
     date: "Year"
@@ -71,7 +71,7 @@ scraper_national:
     format: "csv"
     headers: 2
     admin_single: "UKR"
-    prefilter: "Attacks on Education Facilities != ''"
+    prefilter: "Attacks on Education Facilities is not None"
     date: "Date"
     date_type: "date"
     use_date: True
@@ -90,7 +90,7 @@ scraper_national:
     format: "csv"
     headers: 2
     admin_single: "UKR"
-    prefilter: "Attacks on Health Care != ''"
+    prefilter: "Attacks on Health Care is not None"
     date: "Date"
     date_type: "date"
     use_date: True
@@ -108,7 +108,7 @@ scraper_national:
     format: "csv"
     headers: 2
     admin_single: "UKR"
-    prefilter: "Number of Organisations != ''"
+    prefilter: "Number of Organisations is not None"
     date: "Date"
     date_type: "date"
     use_date: True
@@ -126,7 +126,7 @@ scraper_national:
     format: "csv"
     headers: 2
     admin_single: "UKR"
-    prefilter: "Number of People Reached != ''"
+    prefilter: "Number of People Reached is not None"
     date: "Date"
     date_type: "date"
     use_date: True
