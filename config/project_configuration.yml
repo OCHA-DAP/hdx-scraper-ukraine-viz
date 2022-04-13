@@ -344,6 +344,9 @@ admin1_name_mappings:
   "Rovenskaja Oblast": "UA56"
   "Sevastopol City": "UA85"
   "Zapоrіzskaja Oblast": "UA23"
+  "Kyiv City": "UA80"
+  "Kyiv": "UA32"
+  "Kirovograd": "UA35"
 
 admin1_name_replacements:
   " urban": ""

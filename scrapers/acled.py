@@ -15,6 +15,7 @@ hxltags = {
     "admin1": "#adm1+name",
     "admin2": "#adm2+name",
     "admin3": "#adm3+name",
+    "adm1_pcode": "#adm1+code",
     "location": "#loc+name",
     "latitude": "#geo+lat",
     "longitude": "#geo+lon",
@@ -25,13 +26,14 @@ hxltags = {
 
 class ACLED(BaseScraper):
     def __init__(
-        self, datasetinfo, start_date, today, outputs, downloader, other_auths
+        self, datasetinfo, start_date, today, outputs, adminone, downloader, other_auths
     ):
         # ACLED outputs to its own tab "fatalities" so there are no headers
         super().__init__("acled", datasetinfo, dict())
         self.start_date = start_date
         self.today = today
         self.outputs = outputs
+        self.adminone = adminone
         self.downloader = downloader
         self.other_auths = other_auths
 
@@ -61,6 +63,11 @@ class ACLED(BaseScraper):
                 continue
             if date > latest_date:
                 latest_date = date
+            adm1name = inrow["admin1"]
+            pcode = None
+            if adm1name:
+                pcode, _ = self.adminone.get_pcode("UKR", adm1name)
+            inrow["adm1_pcode"] = pcode
             row = list()
             for header in hxltags:
                 row.append(inrow[header])
