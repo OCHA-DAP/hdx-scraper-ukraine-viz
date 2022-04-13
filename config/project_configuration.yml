@@ -15,7 +15,7 @@ googlesheets:
   scratch: "https://docs.google.com/spreadsheets/d/1XfsqmwE9F0X551WfQU6KPqvlE0mW1auInxMSW_fj6Rc/edit#gid=0"
 
 json:
-  filepath: "all.json"
+  output: "all.json"
 
 additional_sources:
   - indicator: "#date+start+conflict"
