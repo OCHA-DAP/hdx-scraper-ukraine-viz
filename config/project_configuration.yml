@@ -202,29 +202,29 @@ unhcr:
 scraper_subnational:
   population:
     source: "WorldPop/UNFPA"
-    dataset: "gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
-    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_uBOV_uRDSxOggfBus_pkCs6Iw9lm0nAxzwG14YF_frpm13WPKiM1oNnQ9zrUA/pub?gid=1565793974&single=true&output=csv"
+    source_url: "https://data.humdata.org/dataset/gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
+    dataset: "admin-1-population-statistics-for-data-explorers"
     format: "csv"
     admin:
       - "alpha_3"
       - "ADM1_PCODE"
     input:
-      - "POPULATION"
+      - "Population"
     transform:
-      "POPULATION": "get_numeric_if_possible(POPULATION)"
+      "Population": "get_numeric_if_possible(Population)"
     output:
       - "Population"
     output_hxl:
       - "#population"
   health_facilities:
     source: "HOT"
-    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-266S0iZDEvcQmxC2i7LNHWi4fUXtDkrwp8D6NMyHArxnegAYO9XXVnhuHaWvdxaoZTq7M6yGLaPX/pub?gid=1620744216&single=true&output=csv"
+    dataset: "admin-1-health-facilities-for-data-explorers"
     format: "csv"
     admin:
       - "alpha_3"
       - "ADM1_PCODE"
     input:
-      - "NUMPOINTS"
+      - "Health_Facilities"
     output:
       - "NoHealthFacilities"
     output_hxl:
