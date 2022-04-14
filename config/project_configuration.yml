@@ -216,7 +216,7 @@ scraper_subnational:
       - "Population"
     output_hxl:
       - "#population"
-  health_facilities:
+  healthfac:
     source: "HOT"
     dataset: "admin-1-health-facilities-for-data-explorers"
     format: "csv"
@@ -225,6 +225,8 @@ scraper_subnational:
       - "ADM1_PCODE"
     input:
       - "Health_Facilities"
+    transform:
+      "Health_Facilities": "get_numeric_if_possible(Health_Facilities)"
     output:
       - "NoHealthFacilities"
     output_hxl:
