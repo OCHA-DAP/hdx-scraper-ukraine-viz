@@ -2,12 +2,13 @@ import logging
 
 from hdx.scraper.base_scraper import BaseScraper
 from hdx.scraper.utilities.readers import read
+from hdx.utilities.retriever import Retrieve
 
 logger = logging.getLogger(__name__)
 
 
 class IDPs(BaseScraper):
-    def __init__(self, datasetinfo, today, outputs, downloader):
+    def __init__(self, datasetinfo, today, outputs):
         super().__init__(
             "idps",
             datasetinfo,
@@ -20,10 +21,10 @@ class IDPs(BaseScraper):
         )
         self.today = today
         self.outputs = outputs
-        self.downloader = downloader
 
     def run(self):
-        headers, iterator = read(self.downloader, self.datasetinfo, self.today)
+        retriever = Retrieve.get_retriever(self.name)
+        headers, iterator = read(retriever, self.datasetinfo, self.today)
         total = 0
         rows = [
             ("Macro region", "IDP estimation"),

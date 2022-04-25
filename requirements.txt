@@ -1,2 +1,3 @@
-hdx-python-scraper==1.6.6
-
+git+https://github.com/OCHA-DAP/hdx-python-scraper@get_retriever#egg=hdx-python-scraper
+git+https://github.com/OCHA-DAP/hdx-python-api#egg=hdx-python-api
+git+https://github.com/OCHA-DAP/hdx-python-utilities@dl_kwargs#egg=hdx-python-utilities

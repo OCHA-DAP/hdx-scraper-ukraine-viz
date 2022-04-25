@@ -3,6 +3,7 @@ from itertools import chain
 
 from hdx.scraper.base_scraper import BaseScraper
 from hdx.utilities.dateparse import default_date, parse_date
+from hdx.utilities.retriever import Retrieve
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +27,12 @@ hxltags = {
 
 class ACLED(BaseScraper):
     def __init__(
-        self, datasetinfo, start_date, today, outputs, adminone, downloader, other_auths
+        self,
+        datasetinfo,
+        start_date,
+        today,
+        outputs,
+        adminone,
     ):
         # ACLED outputs to its own tab "fatalities" so there are no headers
         super().__init__("acled", datasetinfo, dict())
@@ -34,18 +40,14 @@ class ACLED(BaseScraper):
         self.today = today
         self.outputs = outputs
         self.adminone = adminone
-        self.downloader = downloader
-        self.other_auths = other_auths
 
     def run(self):
         years = range(self.start_date.year, self.today.year + 1)
         iterables = list()
+        retriever = Retrieve.get_retriever(self.name)
         for year in years:
-            url = f"{self.datasetinfo['url'] % year}&{self.other_auths[self.name]}"
-            headers, iterator = self.downloader.get_tabular_rows(
-                url,
-                dict_form=True,
-            )
+            url = self.datasetinfo["url"] % year
+            headers, iterator = retriever.get_tabular_rows(url, dict_form=True)
             iterables.append(iterator)
         latest_date = default_date
         rows = [list(hxltags.keys()), list(hxltags.values())]
