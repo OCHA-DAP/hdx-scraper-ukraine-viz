@@ -4,7 +4,6 @@ from dateutil.relativedelta import relativedelta
 from hdx.scraper.base_scraper import BaseScraper
 from hdx.utilities.dateparse import parse_date
 from hdx.utilities.dictandlist import dict_of_lists_add
-from hdx.utilities.retriever import Retrieve
 from hdx.utilities.text import get_fraction_str
 
 logger = logging.getLogger(__name__)

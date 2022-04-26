@@ -2,7 +2,6 @@ import logging
 
 from hdx.location.country import Country
 from hdx.scraper.base_scraper import BaseScraper
-from hdx.utilities.retriever import Retrieve
 
 logger = logging.getLogger(__name__)
 
