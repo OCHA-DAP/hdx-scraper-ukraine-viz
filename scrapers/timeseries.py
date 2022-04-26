@@ -18,7 +18,7 @@ class TimeSeries(BaseScraper):
 
     def get_iterator(self):
         return read(
-            Retrieve.get_retriever(self.name),
+            self.get_retriever(),
             self.datasetinfo,
             today=self.today,
         )

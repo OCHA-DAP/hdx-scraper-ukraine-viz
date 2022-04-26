@@ -44,7 +44,7 @@ class ACLED(BaseScraper):
     def run(self):
         years = range(self.start_date.year, self.today.year + 1)
         iterables = list()
-        retriever = Retrieve.get_retriever(self.name)
+        retriever = self.get_retriever()
         for year in years:
             url = self.datasetinfo["url"] % year
             headers, iterator = retriever.get_tabular_rows(url, dict_form=True)

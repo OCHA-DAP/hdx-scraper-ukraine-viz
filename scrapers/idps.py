@@ -23,7 +23,7 @@ class IDPs(BaseScraper):
         self.outputs = outputs
 
     def run(self):
-        retriever = Retrieve.get_retriever(self.name)
+        retriever = self.get_retriever()
         headers, iterator = read(retriever, self.datasetinfo, self.today)
         total = 0
         rows = [

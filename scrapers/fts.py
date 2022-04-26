@@ -57,10 +57,9 @@ class FTS(BaseScraper):
         self.today = today
         self.flash_source_date = today
         self.countryiso3s = countryiso3s
-        self.retriever = Retrieve.get_retriever(self.name)
 
     def download(self, url):
-        json = self.retriever.download_json(url)
+        json = self.get_retriever().download_json(url)
         status = json["status"]
         if status != "ok":
             raise FTSException(f"{url} gives status {status}")
