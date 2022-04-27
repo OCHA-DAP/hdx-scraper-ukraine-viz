@@ -67,8 +67,8 @@ def parse_args():
         help="Basic Auth Credentials for accessing scraper APIs",
     )
     parser.add_argument(
-        "-ep",
-        "--extra_params",
+        "-pa",
+        "--param_auths",
         default=None,
         help="Extra parameters for accessing scraper APIs",
     )
@@ -93,7 +93,7 @@ def main(
     scrapers_to_run,
     header_auths,
     basic_auths,
-    extra_params,
+    param_auths,
     nojson,
     nofilecopy,
     countries_override,
@@ -113,7 +113,7 @@ def main(
                 use_saved,
                 header_auths=header_auths,
                 basic_auths=basic_auths,
-                extra_params=extra_params,
+                param_auths=param_auths,
             )
             if scrapers_to_run:
                 logger.info(f"Updating only scrapers: {scrapers_to_run}")
@@ -206,13 +206,13 @@ if __name__ == "__main__":
         basic_auths = string_params_to_dict(ba)
     else:
         basic_auths = None
-    ep = args.extra_params
-    if ep is None:
-        ep = getenv("EXTRA_PARAMS")
-    if ep:
-        extra_params = string_params_to_dict(ep)
+    pa = args.param_auths
+    if pa is None:
+        pa = getenv("PARAM_AUTHS")
+    if pa:
+        param_auths = string_params_to_dict(pa)
     else:
-        extra_params = None
+        param_auths = None
     if args.countries_override:
         countries_override = args.countries_override.split(",")
     else:
@@ -231,7 +231,7 @@ if __name__ == "__main__":
         scrapers_to_run=scrapers_to_run,
         header_auths=header_auths,
         basic_auths=basic_auths,
-        extra_params=extra_params,
+        param_auths=param_auths,
         nojson=args.nojson,
         nofilecopy=args.nofilecopy,
         countries_override=countries_override,
