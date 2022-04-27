@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 class IDPs(BaseScraper):
-    def __init__(self, datasetinfo, today, outputs, downloader):
+    def __init__(self, datasetinfo, today, outputs):
         super().__init__(
             "idps",
             datasetinfo,
@@ -20,10 +20,10 @@ class IDPs(BaseScraper):
         )
         self.today = today
         self.outputs = outputs
-        self.downloader = downloader
 
     def run(self):
-        headers, iterator = read(self.downloader, self.datasetinfo, self.today)
+        retriever = self.get_retriever()
+        headers, iterator = read(retriever, self.datasetinfo, self.today)
         total = 0
         rows = [
             ("Macro region", "IDP estimation"),

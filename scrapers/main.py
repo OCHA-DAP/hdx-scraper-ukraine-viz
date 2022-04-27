@@ -24,12 +24,9 @@ logger = logging.getLogger(__name__)
 def get_indicators(
     configuration,
     today,
-    retriever,
     outputs,
     tabs,
     scrapers_to_run=None,
-    basic_auths=dict(),
-    other_auths=dict(),
     nofilecopy=False,
     countries_override=None,
     errors_on_exit=None,
@@ -46,13 +43,10 @@ def get_indicators(
     else:
         countries = configuration["countries"]
     configuration["countries_fuzzy_try"] = countries
-    downloader = retriever.downloader
     adminone = AdminOne(configuration)
     runner = Runner(
         countries,
         adminone,
-        downloader,
-        basic_auths,
         today,
         errors_on_exit=errors_on_exit,
         scrapers_to_run=scrapers_to_run,
@@ -69,12 +63,10 @@ def get_indicators(
         configurable_scrapers[level] = runner.add_configurables(
             configuration[f"scraper{suffix}"], level, suffix=suffix
         )
-    fts = FTS(configuration["fts"], today, countries, basic_auths)
-    unhcr = UNHCR(configuration["unhcr"], today, outputs, countries, downloader)
-    idps = IDPs(configuration["idps"], today, outputs, downloader)
-    acled = ACLED(
-        configuration["acled"], start_date, today, outputs, adminone, downloader, other_auths
-    )
+    fts = FTS(configuration["fts"], today, countries)
+    unhcr = UNHCR(configuration["unhcr"], today, outputs, countries)
+    idps = IDPs(configuration["idps"], today, outputs)
+    acled = ACLED(configuration["acled"], start_date, today, outputs, adminone)
     runner.add_customs(
         (
             fts,
@@ -83,9 +75,7 @@ def get_indicators(
             acled,
         )
     )
-    timeseries = TimeSeries.get_scrapers(
-        configuration["timeseries"], today, outputs, downloader
-    )
+    timeseries = TimeSeries.get_scrapers(configuration["timeseries"], today, outputs)
     runner.add_customs(timeseries)
     prioritise_scrapers.extend(
         [

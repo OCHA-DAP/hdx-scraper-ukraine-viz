@@ -9,16 +9,15 @@ logger = logging.getLogger(__name__)
 
 
 class TimeSeries(BaseScraper):
-    def __init__(self, name, datasetinfo, today, outputs, downloader):
+    def __init__(self, name, datasetinfo, today, outputs):
         # Time series only outputs to separate tabs
         super().__init__(f"timeseries_{name}", datasetinfo, dict())
         self.today = today
         self.outputs = outputs
-        self.downloader = downloader
 
     def get_iterator(self):
         return read(
-            self.downloader,
+            self.get_retriever(),
             self.datasetinfo,
             today=self.today,
         )
@@ -62,8 +61,8 @@ class TimeSeries(BaseScraper):
             self.add_hxltag_source(self.name, hxltag)
 
     @classmethod
-    def get_scrapers(cls, configuration, today, outputs, downloader):
+    def get_scrapers(cls, configuration, today, outputs):
         scrapers = list()
         for name, datasetinfo in configuration.items():
-            scrapers.append(cls(name, datasetinfo, today, outputs, downloader))
+            scrapers.append(cls(name, datasetinfo, today, outputs))
         return scrapers

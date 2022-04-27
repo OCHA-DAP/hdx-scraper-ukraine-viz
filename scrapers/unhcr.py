@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 class UNHCR(BaseScraper):
-    def __init__(self, datasetinfo, today, outputs, countryiso3s, downloader):
+    def __init__(self, datasetinfo, today, outputs, countryiso3s):
         super().__init__(
             "unhcr",
             datasetinfo,
@@ -25,14 +25,14 @@ class UNHCR(BaseScraper):
         self.today = today
         self.outputs = outputs
         self.countryiso3s = countryiso3s
-        self.downloader = downloader
 
     def run(self):
         url = self.datasetinfo["url"]
         valuedicts = self.get_values("national")
-        r = self.downloader.download(url)
+        retriever = self.get_retriever()
+        json = retriever.download_json(url)
         total_refugees = 0
-        for data in r.json()["data"]:
+        for data in json["data"]:
             individuals = int(data["individuals"])
             total_refugees += individuals
             date = data["date"]
@@ -43,12 +43,12 @@ class UNHCR(BaseScraper):
         self.get_values("regional")[0]["value"] = total_refugees
 
         url = self.datasetinfo["url_series"]
-        r = self.downloader.download(url)
+        json = retriever.download_json(url)
         rows = [
             ("RefugeesDate", "NoRefugees"),
             ("#affected+date+refugees", "#affected+refugees"),
         ]
-        for data in r.json()["data"]["timeseries"]:
+        for data in json["data"]["timeseries"]:
             rows.append((data["data_date"], data["individuals"]))
         tabname = "refugees_series"
         for output in self.outputs.values():

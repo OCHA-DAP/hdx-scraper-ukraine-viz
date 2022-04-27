@@ -6,15 +6,15 @@ from os.path import join
 
 from hdx.api.configuration import Configuration
 from hdx.facades.keyword_arguments import facade
+from hdx.scraper.input import create_retrievers
 from hdx.scraper.outputs.base import BaseOutput
 from hdx.scraper.outputs.excelfile import ExcelFile
 from hdx.scraper.outputs.googlesheets import GoogleSheets
 from hdx.scraper.outputs.json import JsonFile
-from hdx.utilities.downloader import Download
+from hdx.scraper.utilities import string_params_to_dict
 from hdx.utilities.easy_logging import setup_logging
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
-from hdx.utilities.retriever import Retrieve
 from scrapers.main import get_indicators
 
 setup_logging()
@@ -55,16 +55,22 @@ def parse_args():
         help="Do not copy files",
     )
     parser.add_argument(
+        "-ha",
+        "--header_auths",
+        default=None,
+        help="Header Auth Credentials for accessing scraper APIs",
+    )
+    parser.add_argument(
         "-ba",
         "--basic_auths",
         default=None,
         help="Basic Auth Credentials for accessing scraper APIs",
     )
     parser.add_argument(
-        "-oa",
-        "--other_auths",
+        "-ep",
+        "--extra_params",
         default=None,
-        help="Other Credentials for accessing scraper APIs",
+        help="Extra parameters for accessing scraper APIs",
     )
     parser.add_argument(
         "-co", "--countries_override", default=None, help="Countries to run"
@@ -85,8 +91,9 @@ def main(
     updatesheets,
     updatetabs,
     scrapers_to_run,
+    header_auths,
     basic_auths,
-    other_auths,
+    extra_params,
     nojson,
     nofilecopy,
     countries_override,
@@ -98,54 +105,57 @@ def main(
     configuration = Configuration.read()
     with ErrorsOnExit() as errors_on_exit:
         with temp_dir() as temp_folder:
-            with Download(rate_limit={"calls": 1, "period": 0.1}) as downloader:
-                retriever = Retrieve(
-                    downloader, temp_folder, "saved_data", temp_folder, save, use_saved
-                )
-                if scrapers_to_run:
-                    logger.info(f"Updating only scrapers: {scrapers_to_run}")
-                tabs = configuration["tabs"]
-                if updatetabs is None:
-                    updatetabs = list(tabs.keys())
-                    logger.info("Updating all tabs")
-                else:
-                    logger.info(f"Updating only these tabs: {updatetabs}")
-                noout = BaseOutput(updatetabs)
-                if excel_path:
-                    excelout = ExcelFile(excel_path, tabs, updatetabs)
-                else:
-                    excelout = noout
-                if gsheet_auth:
-                    gsheets = GoogleSheets(
-                        configuration["googlesheets"],
-                        gsheet_auth,
-                        updatesheets,
-                        tabs,
-                        updatetabs,
-                    )
-                else:
-                    gsheets = noout
-                if nojson:
-                    jsonout = noout
-                else:
-                    jsonout = JsonFile(configuration["json"], updatetabs)
-                outputs = {"gsheets": gsheets, "excel": excelout, "json": jsonout}
-                today = datetime.now()
-                countries_to_save = get_indicators(
-                    configuration,
-                    today,
-                    retriever,
-                    outputs,
+            create_retrievers(
+                temp_folder,
+                "saved_data",
+                temp_folder,
+                save,
+                use_saved,
+                header_auths=header_auths,
+                basic_auths=basic_auths,
+                extra_params=extra_params,
+            )
+            if scrapers_to_run:
+                logger.info(f"Updating only scrapers: {scrapers_to_run}")
+            tabs = configuration["tabs"]
+            if updatetabs is None:
+                updatetabs = list(tabs.keys())
+                logger.info("Updating all tabs")
+            else:
+                logger.info(f"Updating only these tabs: {updatetabs}")
+            noout = BaseOutput(updatetabs)
+            if excel_path:
+                excelout = ExcelFile(excel_path, tabs, updatetabs)
+            else:
+                excelout = noout
+            if gsheet_auth:
+                gsheets = GoogleSheets(
+                    configuration["googlesheets"],
+                    gsheet_auth,
+                    updatesheets,
+                    tabs,
                     updatetabs,
-                    scrapers_to_run,
-                    basic_auths,
-                    other_auths,
-                    nofilecopy,
-                    countries_override,
-                    errors_on_exit,
                 )
-                jsonout.save(countries_to_save=countries_to_save)
-                excelout.save()
+            else:
+                gsheets = noout
+            if nojson:
+                jsonout = noout
+            else:
+                jsonout = JsonFile(configuration["json"], updatetabs)
+            outputs = {"gsheets": gsheets, "excel": excelout, "json": jsonout}
+            today = datetime.now()
+            countries_to_save = get_indicators(
+                configuration,
+                today,
+                outputs,
+                updatetabs,
+                scrapers_to_run,
+                nofilecopy,
+                countries_override,
+                errors_on_exit,
+            )
+            jsonout.save(countries_to_save=countries_to_save)
+            excelout.save()
 
 
 if __name__ == "__main__":
@@ -182,22 +192,27 @@ if __name__ == "__main__":
         scrapers_to_run = args.scrapers.split(",")
     else:
         scrapers_to_run = None
-    basic_auths = dict()
+    ha = args.header_auths
+    if ha is None:
+        ha = getenv("HEADER_AUTHS")
+    if ha:
+        header_auths = string_params_to_dict(ha)
+    else:
+        header_auths = None
     ba = args.basic_auths
     if ba is None:
         ba = getenv("BASIC_AUTHS")
     if ba:
-        for namevalue in ba.split(","):
-            scraper_name, value = namevalue.split(":")
-            basic_auths[scraper_name] = value
-    other_auths = dict()
-    oa = args.other_auths
-    if oa is None:
-        oa = getenv("OTHER_AUTHS")
-    if oa:
-        for namevalue in oa.split(","):
-            scraper_name, value = namevalue.split(":")
-            other_auths[scraper_name] = value
+        basic_auths = string_params_to_dict(ba)
+    else:
+        basic_auths = None
+    ep = args.extra_params
+    if ep is None:
+        ep = getenv("EXTRA_PARAMS")
+    if ep:
+        extra_params = string_params_to_dict(ep)
+    else:
+        extra_params = None
     if args.countries_override:
         countries_override = args.countries_override.split(",")
     else:
@@ -214,8 +229,9 @@ if __name__ == "__main__":
         updatesheets=updatesheets,
         updatetabs=updatetabs,
         scrapers_to_run=scrapers_to_run,
+        header_auths=header_auths,
         basic_auths=basic_auths,
-        other_auths=other_auths,
+        extra_params=extra_params,
         nojson=args.nojson,
         nofilecopy=args.nofilecopy,
         countries_override=countries_override,
