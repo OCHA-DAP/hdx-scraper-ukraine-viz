@@ -6,6 +6,7 @@ from hdx.api.configuration import Configuration
 from hdx.scraper.input import create_retrievers
 from hdx.scraper.outputs.base import BaseOutput
 from hdx.scraper.outputs.json import JsonFile
+from hdx.scraper.utilities import readers
 from hdx.utilities.dateparse import parse_date
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
@@ -45,6 +46,7 @@ class TestUkraine:
                 jsonout = JsonFile(configuration["json"], tabs)
                 outputs = {"gsheets": noout, "excel": noout, "json": jsonout}
                 today = parse_date("2022-04-27")
+                readers.fixed_dataset_date = today
                 countries_to_save = get_indicators(
                     configuration,
                     today,
