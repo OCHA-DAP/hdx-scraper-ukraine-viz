@@ -295,7 +295,7 @@ idps:
   sheet: "Current location of IDPs"
   headers: 2
 
-countries:
+primary_countries:
   - UKR
   - POL
   - HUN

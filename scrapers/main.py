@@ -39,13 +39,13 @@ def get_indicators(
     )
 
     if countries_override:
-        countries = countries_override
+        primary_countries = countries_override
     else:
-        countries = configuration["countries"]
-    configuration["countries_fuzzy_try"] = countries
+        primary_countries = configuration["primary_countries"]
+    configuration["countries_fuzzy_try"] = primary_countries
     adminone = AdminOne(configuration)
     runner = Runner(
-        countries,
+        primary_countries,
         adminone,
         today,
         errors_on_exit=errors_on_exit,
@@ -63,8 +63,8 @@ def get_indicators(
         configurable_scrapers[level] = runner.add_configurables(
             configuration[f"scraper{suffix}"], level, suffix=suffix
         )
-    fts = FTS(configuration["fts"], today, countries)
-    unhcr = UNHCR(configuration["unhcr"], today, outputs, countries)
+    fts = FTS(configuration["fts"], today, primary_countries)
+    unhcr = UNHCR(configuration["unhcr"], today, outputs, primary_countries)
     idps = IDPs(configuration["idps"], today, outputs)
     acled = ACLED(configuration["acled"], start_date, today, outputs, adminone)
     runner.add_customs(
@@ -96,7 +96,7 @@ def get_indicators(
         update_national(
             runner,
             national_names,
-            countries,
+            primary_countries,
             outputs,
         )
     if "subnational" in tabs:
@@ -108,4 +108,4 @@ def get_indicators(
 
     if "sources" in tabs:
         update_sources(runner, configuration, outputs)
-    return countries
+    return primary_countries
