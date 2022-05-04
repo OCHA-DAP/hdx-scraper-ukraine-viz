@@ -144,7 +144,7 @@ def main(
                 jsonout = JsonFile(configuration["json"], updatetabs)
             outputs = {"gsheets": gsheets, "excel": excelout, "json": jsonout}
             today = datetime.now()
-            countries_to_save = get_indicators(
+            get_indicators(
                 configuration,
                 today,
                 outputs,
@@ -154,7 +154,7 @@ def main(
                 countries_override,
                 errors_on_exit,
             )
-            jsonout.save(countries_to_save=countries_to_save)
+            jsonout.save()
             excelout.save()
 
 

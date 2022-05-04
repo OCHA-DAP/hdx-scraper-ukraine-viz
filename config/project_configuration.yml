@@ -6,6 +6,7 @@ tabs:
   idps_macro: "IDPsMacro"
   fatalities: "Fatalities"
   timeseries_casualties: "Casualties"
+  secondary_national: "SecondaryNationalData"
   sources: "Sources"
 
 
@@ -24,7 +25,7 @@ additional_sources:
     source_url: "https://meduza.io/en/news/2022/02/24/putin-announces-start-of-military-operation-in-eastern-ukraine"
 
 # national
-scraper_national:
+primary_national:
   population:
     source: "WorldPop/UNFPA"
     dataset: "gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
@@ -199,7 +200,7 @@ unhcr:
   url: "https://data2.unhcr.org/population/get/sublocation?widget_id=283575&sv_id=54&population_group=5459,5460&forcesublocation=0&fromDate=1900-01-01"
   url_series: "https://data2.unhcr.org/population/get/timeseries?widget_id=283577&sv_id=54&population_group=5457&frequency=day&fromDate=1900-01-01"
 
-scraper_subnational:
+primary_subnational:
   population:
     source: "WorldPop/UNFPA"
     source_url: "https://data.humdata.org/dataset/gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
@@ -295,7 +296,7 @@ idps:
   sheet: "Current location of IDPs"
   headers: 2
 
-countries:
+primary_countries:
   - UKR
   - POL
   - HUN
@@ -304,6 +305,79 @@ countries:
   - MDA
   - BLR
   - RUS
+
+secondary_national:
+  risk_scores:
+    source: OCHA
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSpRQ8xY9zZjHVF2YOf_9I3PCZOTjAxfQ8G4N6piucYQKcjHN8kIU1WkSuuuy0oe5sjai8Hy8de19QI/pub?gid=2054585246&single=true&output=csv"
+    format: "csv"
+    headers: 3
+    use_hxl: True
+
+secondary_countries:
+  - ABW
+  - AFG
+  - AGO
+  - ARG
+  - BDI
+  - BFA
+  - BGD
+  - BOL
+  - BRA
+  - CAF
+  - CHL
+  - CMR
+  - COD
+  - COG
+  - COL
+  - CRI
+  - CUW
+  - DJI
+  - DOM
+  - ECU
+  - EGY
+  - ETH
+  - GTM
+  - GUY
+  - HND
+  - HTI
+  - IRN
+  - IRQ
+  - JOR
+  - KEN
+  - LBN
+  - LBY
+  - MDG
+  - MEX
+  - MLI
+  - MMR
+  - MOZ
+  - NER
+  - NGA
+  - PAK
+  - PAN
+  - PER
+  - PRY
+  - PSE
+  - RWA
+  - SDN
+  - SLV
+  - SOM
+  - SSD
+  - SYR
+  - TCD
+  - TJK
+  - TKM
+  - TTO
+  - TUR
+  - TZA
+  - UGA
+  - UKR
+  - URY
+  - UZB
+  - VEN
+  - YEM
+  - ZMB
 
 country_name_overrides:
 
