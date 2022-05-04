@@ -61,7 +61,7 @@ def get_indicators(
     for level in ("national", "subnational"):
         suffix = f"_{level}"
         configurable_scrapers[level] = runner.add_configurables(
-            configuration[f"scraper{suffix}"], level, suffix=suffix
+            configuration[f"primary{suffix}"], level, suffix=suffix
         )
     fts = FTS(configuration["fts"], today, primary_countries)
     unhcr = UNHCR(configuration["unhcr"], today, outputs, primary_countries)
@@ -106,6 +106,31 @@ def get_indicators(
     adminone.output_ignored()
     adminone.output_errors()
 
+    secondary_countries = configuration["secondary_countries"]
+    configuration["countries_fuzzy_try"] = secondary_countries
+
+    secondary_runner = Runner(
+        secondary_countries,
+        adminone,
+        today,
+        errors_on_exit=errors_on_exit,
+        scrapers_to_run=scrapers_to_run,
+    )
+    level = "national"
+    suffix = f"_{level}"
+    configurable_scrapers = secondary_runner.add_configurables(
+        configuration[f"secondary{suffix}"], level, suffix=suffix
+    )
+    secondary_runner.run()
+
+    if "secondary_national" in tabs:
+        update_national(
+            secondary_runner,
+            configurable_scrapers,
+            secondary_countries,
+            outputs,
+            tab="secondary_national",
+        )
+
     if "sources" in tabs:
-        update_sources(runner, configuration, outputs)
-    return primary_countries
+        update_sources(runner, secondary_runner, configuration, outputs)

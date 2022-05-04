@@ -27,17 +27,17 @@ def update_tab(outputs, name, data):
         output.update_tab(name, data)
 
 
-def update_regional(runner, outputs):
-    rows = runner.get_rows("regional", ("value",))
-    update_tab(outputs, "regional", rows)
+def update_regional(runner, outputs, tab="regional"):
+    rows = runner.get_rows(tab, ("value",))
+    update_tab(outputs, tab, rows)
 
 
-def update_national(runner, names, countries, outputs):
+def update_national(runner, names, countries, outputs, tab="national"):
     name_fn = lambda adm: Country.get_country_name_from_iso3(adm)
 
     fns = (lambda adm: adm, name_fn)
     rows = runner.get_rows("national", countries, national_headers, fns, names=names)
-    update_tab(outputs, "national", rows)
+    update_tab(outputs, tab, rows)
 
 
 def update_subnational(runner, adminone, outputs):
@@ -55,6 +55,7 @@ def update_subnational(runner, adminone, outputs):
     update_tab(outputs, "subnational", rows)
 
 
-def update_sources(runner, configuration, outputs):
+def update_sources(runner, secondary_runner, configuration, outputs):
     sources = runner.get_sources(additional_sources=configuration["additional_sources"])
-    update_tab(outputs, "sources", list(sources_headers) + sources)
+    secondary_sources = secondary_runner.get_sources()
+    update_tab(outputs, "sources", list(sources_headers) + sources + secondary_sources)
