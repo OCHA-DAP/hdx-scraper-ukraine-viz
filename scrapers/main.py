@@ -2,21 +2,22 @@ import logging
 
 from hdx.location.adminone import AdminOne
 from hdx.location.country import Country
+from hdx.scraper.configurable.filecopier import FileCopier
+from hdx.scraper.configurable.timeseries import TimeSeries
+from hdx.scraper.outputs.update_tabs import (
+    get_toplevel_rows,
+    update_national,
+    update_sources,
+    update_subnational,
+    update_toplevel,
+)
 from hdx.scraper.runner import Runner
 from hdx.utilities.dateparse import parse_date
 
 from .acled import ACLED
-from .filecopier import FileCopier
 from .fts import FTS
 from .idps import IDPs
-from .timeseries import TimeSeries
 from .unhcr import UNHCR
-from .utilities.update_tabs import (
-    update_national,
-    update_regional,
-    update_sources,
-    update_subnational,
-)
 
 logger = logging.getLogger(__name__)
 
@@ -87,7 +88,8 @@ def get_indicators(
     runner.run(prioritise_scrapers=prioritise_scrapers)
 
     if "regional" in tabs:
-        update_regional(runner, outputs)
+        rows = get_toplevel_rows(runner, toplevel="regional")
+        update_toplevel(outputs, rows, tab="regional")
     if "national" in tabs:
         national_names = configurable_scrapers["national"]
         national_names.insert(1, "idps")
@@ -95,9 +97,9 @@ def get_indicators(
         national_names.insert(len(national_names) - 1, "fts")
         update_national(
             runner,
-            national_names,
             primary_countries,
             outputs,
+            names=national_names,
         )
     if "subnational" in tabs:
         update_subnational(runner, adminone, outputs)
@@ -126,11 +128,13 @@ def get_indicators(
     if "secondary_national" in tabs:
         update_national(
             secondary_runner,
-            configurable_scrapers,
             secondary_countries,
             outputs,
+            names=configurable_scrapers,
             tab="secondary_national",
         )
 
     if "sources" in tabs:
-        update_sources(runner, secondary_runner, configuration, outputs)
+        update_sources(
+            runner, configuration, outputs, secondary_runner=secondary_runner
+        )
