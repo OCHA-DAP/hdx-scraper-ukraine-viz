@@ -43,10 +43,10 @@ class ACLED(BaseScraper):
     def run(self):
         years = range(self.start_date.year, self.today.year + 1)
         iterables = list()
-        retriever = self.get_retriever()
+        reader = self.get_reader()
         for year in years:
             url = self.datasetinfo["url"] % year
-            headers, iterator = retriever.get_tabular_rows(url, dict_form=True)
+            headers, iterator = reader.get_tabular_rows(url, dict_form=True)
             iterables.append(iterator)
         latest_date = default_date
         rows = [list(hxltags.keys()), list(hxltags.values())]
