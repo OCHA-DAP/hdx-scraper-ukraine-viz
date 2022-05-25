@@ -6,12 +6,12 @@ from os.path import join
 
 from hdx.api.configuration import Configuration
 from hdx.facades.keyword_arguments import facade
-from hdx.scraper.input import create_retrievers
 from hdx.scraper.outputs.base import BaseOutput
 from hdx.scraper.outputs.excelfile import ExcelFile
 from hdx.scraper.outputs.googlesheets import GoogleSheets
 from hdx.scraper.outputs.json import JsonFile
 from hdx.scraper.utilities import string_params_to_dict
+from hdx.scraper.utilities.reader import Read
 from hdx.utilities.easy_logging import setup_logging
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
@@ -105,7 +105,8 @@ def main(
     configuration = Configuration.read()
     with ErrorsOnExit() as errors_on_exit:
         with temp_dir() as temp_folder:
-            create_retrievers(
+            today = datetime.now()
+            Read.create_readers(
                 temp_folder,
                 "saved_data",
                 temp_folder,
@@ -114,6 +115,7 @@ def main(
                 header_auths=header_auths,
                 basic_auths=basic_auths,
                 param_auths=param_auths,
+                today=today,
             )
             if scrapers_to_run:
                 logger.info(f"Updating only scrapers: {scrapers_to_run}")
@@ -143,7 +145,6 @@ def main(
             else:
                 jsonout = JsonFile(configuration["json"], updatetabs)
             outputs = {"gsheets": gsheets, "excel": excelout, "json": jsonout}
-            today = datetime.now()
             get_indicators(
                 configuration,
                 today,

@@ -56,7 +56,7 @@ def get_indicators(
     if nofilecopy:
         prioritise_scrapers = list()
     else:
-        filecopiers = FileCopier.get_scrapers(configuration["copyfiles"], today)
+        filecopiers = FileCopier.get_scrapers(configuration["copyfiles"])
         prioritise_scrapers = runner.add_customs(filecopiers)
     configurable_scrapers = dict()
     for level in ("national", "subnational"):

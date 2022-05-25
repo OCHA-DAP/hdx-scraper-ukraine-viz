@@ -3,10 +3,9 @@ from os.path import join
 
 import pytest
 from hdx.api.configuration import Configuration
-from hdx.scraper.input import create_retrievers
 from hdx.scraper.outputs.base import BaseOutput
 from hdx.scraper.outputs.json import JsonFile
-from hdx.scraper.utilities import readers
+from hdx.scraper.utilities.reader import Read
 from hdx.utilities.dateparse import parse_date
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
@@ -34,19 +33,19 @@ class TestUkraine:
             with temp_dir(
                 "TestUkraineViz", delete_on_success=True, delete_on_failure=False
             ) as temp_folder:
-                create_retrievers(
+                today = parse_date("2022-04-27")
+                Read.create_readers(
                     temp_folder,
                     join(folder, "input"),
                     temp_folder,
                     False,
                     True,
+                    today=today,
                 )
                 tabs = configuration["tabs"]
                 noout = BaseOutput(tabs)
                 jsonout = JsonFile(configuration["json"], tabs)
                 outputs = {"gsheets": noout, "excel": noout, "json": jsonout}
-                today = parse_date("2022-04-27")
-                readers.fixed_dataset_date = today
                 countries_to_save = get_indicators(
                     configuration,
                     today,
