@@ -197,8 +197,8 @@ fts:
 unhcr:
   source: "UNHCR"
   source_url: "https://data.humdata.org/dataset/ukraine-refugee-situation"
-  url: "https://data2.unhcr.org/population/get/sublocation?widget_id=283575&sv_id=54&population_group=5459,5460&forcesublocation=0&fromDate=1900-01-01"
-  url_series: "https://data2.unhcr.org/population/get/timeseries?widget_id=283577&sv_id=54&population_group=5457&frequency=day&fromDate=1900-01-01"
+  url: "https://data.unhcr.org/population/get/sublocation?widget_id=283575&sv_id=54&population_group=5459,5460&forcesublocation=0&fromDate=1900-01-01"
+  url_series: "https://data.unhcr.org/population/get/timeseries?widget_id=283577&sv_id=54&population_group=5457&frequency=day&fromDate=1900-01-01"
 
 primary_subnational:
   population:
