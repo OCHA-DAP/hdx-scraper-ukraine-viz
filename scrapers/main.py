@@ -66,7 +66,7 @@ def get_indicators(
         )
     fts = FTS(configuration["fts"], today, primary_countries)
     unhcr = UNHCR(configuration["unhcr"], today, outputs, primary_countries)
-    idps = IDPs(configuration["idps"], today, outputs)
+    idps = IDPs(configuration["idps"], outputs)
     acled = ACLED(configuration["acled"], start_date, today, outputs, adminone)
     runner.add_customs(
         (

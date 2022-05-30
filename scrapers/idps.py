@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 class IDPs(BaseScraper):
-    def __init__(self, datasetinfo, today, outputs):
+    def __init__(self, datasetinfo, outputs):
         super().__init__(
             "idps",
             datasetinfo,
@@ -17,7 +17,6 @@ class IDPs(BaseScraper):
                 ),
             },
         )
-        self.today = today
         self.outputs = outputs
 
     def run(self):
