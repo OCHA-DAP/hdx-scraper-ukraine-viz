@@ -15,6 +15,7 @@ from hdx.scraper.utilities.reader import Read
 from hdx.utilities.easy_logging import setup_logging
 from hdx.utilities.errors_onexit import ErrorsOnExit
 from hdx.utilities.path import temp_dir
+
 from scrapers.main import get_indicators
 
 setup_logging()
@@ -29,7 +30,9 @@ def parse_args():
     parser.add_argument("-hk", "--hdx_key", default=None, help="HDX api key")
     parser.add_argument("-ua", "--user_agent", default=None, help="user agent")
     parser.add_argument("-pp", "--preprefix", default=None, help="preprefix")
-    parser.add_argument("-hs", "--hdx_site", default=None, help="HDX site to use")
+    parser.add_argument(
+        "-hs", "--hdx_site", default=None, help="HDX site to use"
+    )
     parser.add_argument(
         "-xl", "--excel_path", default=None, help="Path for Excel output"
     )
@@ -40,12 +43,23 @@ def parse_args():
         help="Credentials for accessing Google Sheets",
     )
     parser.add_argument(
-        "-us", "--updatespreadsheets", default=None, help="Spreadsheets to update"
+        "-us",
+        "--updatespreadsheets",
+        default=None,
+        help="Spreadsheets to update",
     )
-    parser.add_argument("-sc", "--scrapers", default=None, help="Scrapers to run")
-    parser.add_argument("-ut", "--updatetabs", default=None, help="Sheets to update")
     parser.add_argument(
-        "-nj", "--nojson", default=False, action="store_true", help="Do not update json"
+        "-sc", "--scrapers", default=None, help="Scrapers to run"
+    )
+    parser.add_argument(
+        "-ut", "--updatetabs", default=None, help="Sheets to update"
+    )
+    parser.add_argument(
+        "-nj",
+        "--nojson",
+        default=False,
+        action="store_true",
+        help="Do not update json",
     )
     parser.add_argument(
         "-nfc",
@@ -76,10 +90,18 @@ def parse_args():
         "-co", "--countries_override", default=None, help="Countries to run"
     )
     parser.add_argument(
-        "-sv", "--save", default=False, action="store_true", help="Save downloaded data"
+        "-sv",
+        "--save",
+        default=False,
+        action="store_true",
+        help="Save downloaded data",
     )
     parser.add_argument(
-        "-usv", "--use_saved", default=False, action="store_true", help="Use saved data"
+        "-usv",
+        "--use_saved",
+        default=False,
+        action="store_true",
+        help="Use saved data",
     )
     args = parser.parse_args()
     return args
@@ -112,6 +134,7 @@ def main(
                 temp_folder,
                 save,
                 use_saved,
+                hdx_auth=configuration.get_api_key(),
                 header_auths=header_auths,
                 basic_auths=basic_auths,
                 param_auths=param_auths,
