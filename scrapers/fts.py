@@ -224,13 +224,21 @@ class FTS(BaseScraper):
                     else:
                         countrypct = None
                     add_other_requirements_and_funding(
-                        countryiso, plan_name, countryreq, countryfund, countrypct
+                        countryiso,
+                        plan_name,
+                        countryreq,
+                        countryfund,
+                        countrypct,
                     )
                 for countryiso in countryreqs:
                     if countryiso in countryfunds:
                         continue
                     add_other_requirements_and_funding(
-                        countryiso, plan_name, countryreqs[countryiso], None, None
+                        countryiso,
+                        plan_name,
+                        countryreqs[countryiso],
+                        None,
+                        None,
                     )
 
         def create_output(vallist):
@@ -254,7 +262,7 @@ class FTS(BaseScraper):
         url = f"{base_url}2/fts/flow/plan/overview/recipient/{curdate.year}"
         data = self.download_data(url)
         for org_data in data["organizations"]:
-            if org_data["id"] == 10108:
+            if org_data.get("id") == 10108:
                 uhf_funding["UKR"] = org_data["totalFunding"]
                 break
 
