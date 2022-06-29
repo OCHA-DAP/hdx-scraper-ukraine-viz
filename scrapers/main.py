@@ -136,5 +136,8 @@ def get_indicators(
 
     if "sources" in tabs:
         update_sources(
-            runner, configuration, outputs, secondary_runner=secondary_runner
+            runner,
+            outputs,
+            additional_sources=configuration["additional_sources"],
+            secondary_runner=secondary_runner,
         )
