@@ -29,7 +29,7 @@ primary_national:
   population:
     source: "WorldPop/UNFPA"
     dataset: "gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
-    url: "http://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=excel&dataformat=list"
+    url: "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=excel&dataformat=list"
     format: "xls"
     sheet: "Data"
     headers: 3
