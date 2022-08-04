@@ -275,7 +275,7 @@ timeseries:
       - "#affected+killed"
       - "#affected+injured"
 
-copyfiles:
+downloadresources:
   - dataset: "ukraine-border-crossings"
     format: "geojson"
     filename: "UKR_Border_Crossings.geojson"

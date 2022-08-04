@@ -3,8 +3,6 @@ from os.path import join
 
 from hdx.location.adminone import AdminOne
 from hdx.location.country import Country
-from hdx.scraper.configurable.filecopier import FileCopier
-from hdx.scraper.configurable.timeseries import TimeSeries
 from hdx.scraper.outputs.update_tabs import (
     get_toplevel_rows,
     update_national,
@@ -71,8 +69,9 @@ def get_indicators(
     if nofilecopy:
         prioritise_scrapers = list()
     else:
-        filecopiers = FileCopier.get_scrapers(configuration["copyfiles"])
-        prioritise_scrapers = runner.add_customs(filecopiers)
+        prioritise_scrapers = runner.add_resource_downloaders(
+            configuration["downloadresources"]
+        )
     configurable_scrapers = dict()
     for level in ("national", "subnational"):
         suffix = f"_{level}"
@@ -91,8 +90,7 @@ def get_indicators(
             acled,
         )
     )
-    timeseries = TimeSeries.get_scrapers(configuration["timeseries"], today, outputs)
-    runner.add_customs(timeseries)
+    runner.add_timeseries_scrapers(configuration["timeseries"], outputs)
     prioritise_scrapers.extend(
         [
             "population_national",
