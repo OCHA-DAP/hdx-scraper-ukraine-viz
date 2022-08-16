@@ -179,6 +179,29 @@ primary_national:
           - "CERFFunding"
         output_hxl:
           - "#value+cerf+funding+total+usd"
+  grain_initiative:
+    source: "JCC"
+    source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
+    format: "csv"
+    headers: 2
+    admin_single: "UKR"
+    prefilter: "Number of Voyages is not None"
+    date: "Date"
+    date_type: "date"
+    use_date: True
+    input:
+      - "Number of Voyages"
+      - "Tonnage of Commodities"
+    transform:
+      "Number of Voyages": "get_numeric_if_possible(Number of Voyages)"
+      "Total Tonnage": "get_numeric_if_possible(Tonnage of Commodities)"
+    output:
+      - "NumberOfVoyages"
+      - "TonnageOfCommodities"
+    output_hxl:
+      - "#indicator+voyages+num"
+      - "#indicator+commodities+num"
 
 fts:
   source: "OCHA"
