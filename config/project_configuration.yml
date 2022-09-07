@@ -223,11 +223,12 @@ primary_subnational:
   population:
     source: "WorldPop/UNFPA"
     source_url: "https://data.humdata.org/dataset/gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
-    dataset: "admin-1-population-statistics-for-data-explorers"
+    dataset: "population-statistics-for-data-explorers"
     format: "csv"
     admin:
       - "alpha_3"
-      - "ADM1_PCODE"
+      - "ADM_PCODE"
+    admin_exact: True
     input:
       - "Population"
     transform:
@@ -238,11 +239,12 @@ primary_subnational:
       - "#population"
   healthfac:
     source: "HOT"
-    dataset: "admin-1-health-facilities-for-data-explorers"
+    dataset: "health-facility-counts-for-data-explorers"
     format: "csv"
     admin:
       - "alpha_3"
-      - "ADM1_PCODE"
+      - "ADM_PCODE"
+    admin_exact: True
     input:
       - "Health_Facilities"
     transform:
