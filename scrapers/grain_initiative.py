@@ -31,7 +31,9 @@ class GrainInitiative(BaseScraper):
                 latest_date = date
             tons = int(inrow["Tonnage"])
             tonnage += tons
-            voyages += 1
+            voyage = inrow["Outbound Sequence"]
+            if voyage and int(voyage) > voyages:
+                voyages = int(voyage)
         valuedict = self.get_values("national")
         valuedict[0]["UKR"] = voyages
         valuedict[1]["UKR"] = tonnage
