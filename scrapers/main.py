@@ -1,7 +1,7 @@
 import logging
 from os.path import join
 
-from hdx.location.adminlevel import AdminLevel
+from hdx.location.adminone import AdminOne
 from hdx.location.country import Country
 from hdx.scraper.outputs.update_tabs import (
     get_toplevel_rows,
@@ -46,7 +46,7 @@ def get_indicators(
     else:
         primary_countries = configuration["primary_countries"]
     configuration["countries_fuzzy_try"] = primary_countries
-    adminlevel = AdminLevel(configuration)
+    adminone = AdminOne(configuration)
     if fallbacks_root is not None:
         fallbacks_path = join(fallbacks_root, configuration["json"]["output"])
         levels_mapping = {
@@ -119,17 +119,18 @@ def get_indicators(
             names=national_names,
         )
     if "subnational" in tabs:
-        update_subnational(runner, adminlevel, outputs)
+        update_subnational(runner, adminone, outputs)
 
-    adminlevel.output_matches()
-    adminlevel.output_ignored()
-    adminlevel.output_errors()
+    adminone.output_matches()
+    adminone.output_ignored()
+    adminone.output_errors()
 
     secondary_countries = configuration["secondary_countries"]
     configuration["countries_fuzzy_try"] = secondary_countries
 
     secondary_runner = Runner(
         secondary_countries,
+        adminone,
         today,
         errors_on_exit=errors_on_exit,
         scrapers_to_run=scrapers_to_run,

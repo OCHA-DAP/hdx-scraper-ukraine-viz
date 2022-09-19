@@ -1,1 +1,2 @@
-hdx-python-scraper==1.9.2
+hdx-python-scraper==1.9.1
+hdx-python-country==3.3.8
