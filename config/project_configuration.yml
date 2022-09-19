@@ -402,7 +402,7 @@ country_name_overrides:
 
 country_name_mappings:
 
-admin1_info:
+admin_info:
   - {country: Ukraine, iso3: UKR, pcode: UA01, name: Avtonomna Respublika Krym}
   - {country: Ukraine, iso3: UKR, pcode: UA71, name: Cherkaska}
   - {country: Ukraine, iso3: UKR, pcode: UA74, name: Chernihivska}
@@ -431,7 +431,7 @@ admin1_info:
   - {country: Ukraine, iso3: UKR, pcode: UA23, name: Zaporizka}
   - {country: Ukraine, iso3: UKR, pcode: UA18, name: Zhytomyrska}
 
-admin1_name_mappings:
+admin_name_mappings:
   "Chernigovskaja Oblast": "UA74"
   "Chernіvеtskaja Oblast": "UA73"
   "Crimea": "UA01"
@@ -443,7 +443,7 @@ admin1_name_mappings:
   "Kyiv": "UA32"
   "Kirovograd": "UA35"
 
-admin1_name_replacements:
+admin_name_replacements:
   " urban": ""
   "sud": "south"
   "ouest": "west"
@@ -455,7 +455,7 @@ admin1_name_replacements:
   " region": ""
   " oblast": ""
 
-admin1_fuzzy_dont:
+admin_fuzzy_dont:
   - "nord"
   - "north"
   - "sud"

@@ -1,7 +1,7 @@
 import logging
 from os.path import join
 
-from hdx.location.adminone import AdminOne
+from hdx.location.adminlevel import AdminLevel
 from hdx.location.country import Country
 from hdx.scraper.outputs.update_tabs import (
     get_toplevel_rows,
@@ -45,7 +45,7 @@ def get_indicators(
     else:
         primary_countries = configuration["primary_countries"]
     configuration["countries_fuzzy_try"] = primary_countries
-    adminone = AdminOne(configuration)
+    adminlevel = AdminLevel(configuration)
     if fallbacks_root is not None:
         fallbacks_path = join(fallbacks_root, configuration["json"]["output"])
         levels_mapping = {
@@ -60,7 +60,6 @@ def get_indicators(
         )
     runner = Runner(
         primary_countries,
-        adminone,
         today,
         errors_on_exit=errors_on_exit,
         scrapers_to_run=scrapers_to_run,
@@ -76,12 +75,15 @@ def get_indicators(
     for level in ("national", "subnational"):
         suffix = f"_{level}"
         configurable_scrapers[level] = runner.add_configurables(
-            configuration[f"primary{suffix}"], level, suffix=suffix
+            configuration[f"primary{suffix}"],
+            level,
+            adminlevel=adminlevel,
+            suffix=suffix,
         )
     fts = FTS(configuration["fts"], today, primary_countries)
     unhcr = UNHCR(configuration["unhcr"], today, outputs, primary_countries)
     idps = IDPs(configuration["idps"], outputs)
-    acled = ACLED(configuration["acled"], start_date, today, outputs, adminone)
+    acled = ACLED(configuration["acled"], start_date, today, outputs, adminlevel)
     runner.add_customs(
         (
             fts,
@@ -115,18 +117,17 @@ def get_indicators(
             names=national_names,
         )
     if "subnational" in tabs:
-        update_subnational(runner, adminone, outputs)
+        update_subnational(runner, adminlevel, outputs)
 
-    adminone.output_matches()
-    adminone.output_ignored()
-    adminone.output_errors()
+    adminlevel.output_matches()
+    adminlevel.output_ignored()
+    adminlevel.output_errors()
 
     secondary_countries = configuration["secondary_countries"]
     configuration["countries_fuzzy_try"] = secondary_countries
 
     secondary_runner = Runner(
         secondary_countries,
-        adminone,
         today,
         errors_on_exit=errors_on_exit,
         scrapers_to_run=scrapers_to_run,
