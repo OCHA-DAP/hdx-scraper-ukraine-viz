@@ -179,29 +179,6 @@ primary_national:
           - "CERFFunding"
         output_hxl:
           - "#value+cerf+funding+total+usd"
-  grain_initiative:
-    source: "JCC"
-    source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
-    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
-    format: "csv"
-    headers: 2
-    admin_single: "UKR"
-    prefilter: "Number of Voyages is not None"
-    date: "Date"
-    date_type: "date"
-    use_date: True
-    input:
-      - "Number of Voyages"
-      - "Tonnage of Commodities"
-    transform:
-      "Number of Voyages": "get_numeric_if_possible(Number of Voyages)"
-      "Total Tonnage": "get_numeric_if_possible(Tonnage of Commodities)"
-    output:
-      - "NumberOfVoyages"
-      - "TonnageOfCommodities"
-    output_hxl:
-      - "#indicator+voyages+num"
-      - "#indicator+commodities+num"
 
 fts:
   source: "OCHA"
@@ -223,11 +200,12 @@ primary_subnational:
   population:
     source: "WorldPop/UNFPA"
     source_url: "https://data.humdata.org/dataset/gridded-population-estimates-for-ukraine-using-un-cod-ps-estimates-2020-version-1-0"
-    dataset: "admin-1-population-statistics-for-data-explorers"
+    dataset: "population-statistics-for-data-explorers"
     format: "csv"
     admin:
       - "alpha_3"
-      - "ADM1_PCODE"
+      - "ADM_PCODE"
+    admin_exact: True
     input:
       - "Population"
     transform:
@@ -238,11 +216,12 @@ primary_subnational:
       - "#population"
   healthfac:
     source: "HOT"
-    dataset: "admin-1-health-facilities-for-data-explorers"
+    dataset: "health-facility-counts-for-data-explorers"
     format: "csv"
     admin:
       - "alpha_3"
-      - "ADM1_PCODE"
+      - "ADM_PCODE"
+    admin_exact: True
     input:
       - "Health_Facilities"
     transform:
@@ -314,6 +293,13 @@ idps:
   format: "xlsx"
   sheet: "Current location of IDPs"
   headers: 2
+
+grain_initiative:
+  source: "JCC"
+  dataset: "black-sea-grain-initiative-vessel-movements"
+  format: "xlsx"
+  sheet: "Data"
+  headers: 1
 
 primary_countries:
   - UKR

@@ -16,6 +16,7 @@ from hdx.utilities.dateparse import parse_date
 
 from .acled import ACLED
 from .fts import FTS
+from .grain_initiative import GrainInitiative
 from .idps import IDPs
 from .unhcr import UNHCR
 
@@ -60,6 +61,7 @@ def get_indicators(
         )
     runner = Runner(
         primary_countries,
+        adminone,
         today,
         errors_on_exit=errors_on_exit,
         scrapers_to_run=scrapers_to_run,
@@ -75,20 +77,19 @@ def get_indicators(
     for level in ("national", "subnational"):
         suffix = f"_{level}"
         configurable_scrapers[level] = runner.add_configurables(
-            configuration[f"primary{suffix}"],
-            level,
-            adminlevel=adminlevel,
-            suffix=suffix,
+            configuration[f"primary{suffix}"], level, suffix=suffix
         )
     fts = FTS(configuration["fts"], today, primary_countries)
     unhcr = UNHCR(configuration["unhcr"], today, outputs, primary_countries)
     idps = IDPs(configuration["idps"], outputs)
-    acled = ACLED(configuration["acled"], start_date, today, outputs, adminlevel)
+    grain_initiative = GrainInitiative(configuration["grain_initiative"], outputs)
+    acled = ACLED(configuration["acled"], start_date, today, outputs, adminone)
     runner.add_customs(
         (
             fts,
             unhcr,
             idps,
+            grain_initiative,
             acled,
         )
     )
@@ -108,6 +109,7 @@ def get_indicators(
     if "national" in tabs:
         national_names = configurable_scrapers["national"]
         national_names.insert(1, "idps")
+        national_names.insert(1, "grain_initiative")
         national_names.insert(1, "unhcr")
         national_names.insert(len(national_names) - 1, "fts")
         update_national(
