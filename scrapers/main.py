@@ -12,6 +12,7 @@ from hdx.scraper.outputs.update_tabs import (
 )
 from hdx.scraper.runner import Runner
 from hdx.scraper.utilities.fallbacks import Fallbacks
+from hdx.scraper.utilities.sources import Sources
 from hdx.utilities.dateparse import parse_date
 
 from .acled import ACLED
@@ -59,6 +60,7 @@ def get_indicators(
             levels_mapping=levels_mapping,
             sources_key="sources_data",
         )
+    Sources.set_default_source_date_format("%Y-%m-%d")
     runner = Runner(
         primary_countries,
         today,
