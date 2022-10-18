@@ -3,16 +3,10 @@ from os.path import join
 
 from hdx.location.adminlevel import AdminLevel
 from hdx.location.country import Country
-from hdx.scraper.outputs.update_tabs import (
-    get_toplevel_rows,
-    update_national,
-    update_sources,
-    update_subnational,
-    update_toplevel,
-)
 from hdx.scraper.runner import Runner
 from hdx.scraper.utilities.fallbacks import Fallbacks
 from hdx.scraper.utilities.sources import Sources
+from hdx.scraper.utilities.writer import Writer
 from hdx.utilities.dateparse import parse_date
 
 from .acled import ACLED
@@ -107,23 +101,22 @@ def get_indicators(
     )
     runner.run(prioritise_scrapers=prioritise_scrapers)
 
+    writer = Writer(runner, outputs)
     if "regional" in tabs:
-        rows = get_toplevel_rows(runner, toplevel="regional")
-        update_toplevel(outputs, rows, tab="regional")
+        rows = writer.get_toplevel_rows(toplevel="regional")
+        writer.update_toplevel(rows, tab="regional")
     if "national" in tabs:
         national_names = configurable_scrapers["national"]
         national_names.insert(1, "idps")
         national_names.insert(1, "grain_initiative")
         national_names.insert(1, "unhcr")
         national_names.insert(len(national_names) - 1, "fts")
-        update_national(
-            runner,
+        writer.update_national(
             primary_countries,
-            outputs,
             names=national_names,
         )
     if "subnational" in tabs:
-        update_subnational(runner, adminlevel, outputs)
+        writer.update_subnational(adminlevel)
 
     adminlevel.output_matches()
     adminlevel.output_ignored()
@@ -145,19 +138,16 @@ def get_indicators(
     )
     secondary_runner.run()
 
+    secondary_writer = Writer(secondary_runner, outputs)
     if "secondary_national" in tabs:
-        update_national(
-            secondary_runner,
+        secondary_writer.update_national(
             secondary_countries,
-            outputs,
             names=configurable_scrapers,
             tab="secondary_national",
         )
 
     if "sources" in tabs:
-        update_sources(
-            runner,
-            outputs,
+        writer.update_sources(
             additional_sources=configuration["additional_sources"],
             secondary_runner=secondary_runner,
         )
