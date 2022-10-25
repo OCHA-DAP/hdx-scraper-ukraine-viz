@@ -3,6 +3,7 @@ from itertools import chain
 
 from hdx.scraper.base_scraper import BaseScraper
 from hdx.utilities.dateparse import default_date, parse_date
+from hdx.utilities.downloader import Download
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +47,9 @@ class ACLED(BaseScraper):
         reader = self.get_reader()
         for year in years:
             url = self.datasetinfo["url"] % year
-            headers, iterator = reader.get_tabular_rows(url, dict_form=True)
+            path = reader.download_file(url)
+            downloader = Download()
+            headers, iterator = downloader.get_tabular_rows(path, dict_form=True)
             iterables.append(iterator)
         latest_date = default_date
         rows = [list(hxltags.keys()), list(hxltags.values())]
