@@ -1,4 +1,4 @@
-Country,Income group,UN region,Commodity,SUM of Tonnage
+Country,Income group,UN region,Commodity,total metric tons
 Afghanistan,low-income,Asia-Pacific,Wheat,"30,000"
 Algeria,lower-middle income,Africa,Wheat,"110,000"
 Bangladesh,lower-middle income,Asia-Pacific,Wheat,"209,986"

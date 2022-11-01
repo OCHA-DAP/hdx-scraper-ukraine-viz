@@ -28,7 +28,7 @@ class GrainByIncome(BaseScraper):
         for inrow in iterator:
             if inrow["Commodity"] != "Wheat":
                 continue
-            tons = int(inrow["SUM of Tonnage"].replace(",", ""))
+            tons = int(inrow["total metric tons"].replace(",", ""))
             tonnage_total += tons
             if inrow["Income group"] in ["low-income", "lower-middle income"]:
                 tonnage_lowincome += tons
