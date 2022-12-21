@@ -28,6 +28,8 @@ class IDPs(BaseScraper):
             ("#region+macro+name", "#affected+idps"),
         ]
         for inrow in iterator:
+            if not inrow["Macro-region"]:
+                continue
             idps = int(inrow["# est. IDPs presence per macro-region"])
             total += idps
             rows.append((inrow["Macro-region"], idps))
