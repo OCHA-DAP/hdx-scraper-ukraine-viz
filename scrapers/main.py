@@ -12,7 +12,6 @@ from hdx.utilities.dateparse import parse_date
 from .acled import ACLED
 from .fts import FTS
 from .grain_initiative import GrainInitiative
-from .grain_by_income import GrainByIncome
 from .idps import IDPs
 from .unhcr import UNHCR
 
@@ -82,7 +81,6 @@ def get_indicators(
     unhcr = UNHCR(configuration["unhcr"], today, outputs, primary_countries)
     idps = IDPs(configuration["idps"], outputs)
     grain_initiative = GrainInitiative(configuration["grain_initiative"], outputs)
-    grain_by_income = GrainByIncome(configuration["grain_by_income"], outputs)
     acled = ACLED(configuration["acled"], start_date, today, outputs, adminlevel)
     runner.add_customs(
         (
@@ -90,7 +88,6 @@ def get_indicators(
             unhcr,
             idps,
             grain_initiative,
-            grain_by_income,
             acled,
         )
     )
@@ -112,7 +109,6 @@ def get_indicators(
         national_names = configurable_scrapers["national"]
         national_names.insert(1, "idps")
         national_names.insert(1, "grain_initiative")
-        national_names.insert(1, "grain_by_income")
         national_names.insert(1, "unhcr")
         national_names.insert(len(national_names) - 1, "fts")
         writer.update_national(

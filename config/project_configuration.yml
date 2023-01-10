@@ -301,12 +301,6 @@ grain_initiative:
   sheet: "Data"
   headers: 1
 
-grain_by_income:
-  source: "JCC"
-  dataset: "black-sea-grain-initiative-destination-countries-cargo-and-un-income-group"
-  format: "csv"
-  headers: 1
-
 primary_countries:
   - UKR
   - POL
