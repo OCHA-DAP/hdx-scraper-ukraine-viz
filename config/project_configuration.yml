@@ -179,6 +179,30 @@ primary_national:
           - "CERFFunding"
         output_hxl:
           - "#value+cerf+funding+total+usd"
+  inneed:
+    dataset: "ukraine-hno"
+    resource: "Ukraine 2023 HNO PIN and Severity for HDX 20230215.xlsx"
+    format: "xlsx"
+    sheet: "Overall PIN SADD by Oblast "
+    headers:
+      - 5
+      - 6
+    admin_single: "UKR"
+    input:
+      - "Total #affected"
+      - "Overall #inneed"
+    transform:
+      "Total #affected": "get_numeric_if_possible(Total #affected)"
+      "Overall #inneed": "get_numeric_if_possible(Overall #inneed)"
+    sum:
+      - formula: "int(Total #affected)"
+      - formula: "int(Overall #inneed)"
+    output:
+      - "PeopleAffected"
+      - "PeopleInNeed"
+    output_hxl:
+      - "#affected+total"
+      - "#affected+inneed+total"
 
 fts:
   source: "OCHA"
@@ -251,6 +275,41 @@ primary_subnational:
       - "#org+count+num"
       - "#reached+ind"
       - "#sector+cluster+names"
+  hno:
+    dataset: "ukraine-hno"
+    resource: "Ukraine 2023 HNO PIN and Severity for HDX 20230215.xlsx"
+    format: "xlsx"
+    sheet: "Overall PIN SADD by Oblast "
+    headers:
+      - 4
+      - 5
+    admin:
+      - ~
+      - "Geography Oblast PCode"
+    input:
+      - "Affected Population Estimate Total"
+      - "PIN Estimate by Population Group IDPs"
+      - "PIN Estimate by Population Group Non-Displaced"
+      - "PIN Estimate by Population Group Returnees"
+      - "PIN Estimate by Population Group Overall"
+    transform:
+      "Affected Population Estimate Total": "round(get_numeric_if_possible(Affected Population Estimate Total), 0)"
+      "PIN Estimate by Population Group IDPs": "round(get_numeric_if_possible(PIN Estimate by Population Group IDPs), 0)"
+      "PIN Estimate by Population Group Non-Displaced": "round(get_numeric_if_possible(PIN Estimate by Population Group Non-Displaced), 0)"
+      "PIN Estimate by Population Group Returnees": "round(get_numeric_if_possible(PIN Estimate by Population Group Returnees), 0)"
+      "PIN Estimate by Population Group Overall": "round(get_numeric_if_possible(PIN Estimate by Population Group Overall), 0)"
+    output:
+      - "PeopleAffected"
+      - "IDPsInNeed"
+      - "NonDisplacedInNeed"
+      - "ReturneesInNeed"
+      - "PeopleInNeed"
+    output_hxl:
+      - "#affected+total"
+      - "#affected+inneed+idps"
+      - "#affected+inneed+nondisplaced"
+      - "#affected+inneed+returnees"
+      - "#affected+inneed+total"
 
 timeseries:
   casualties:
