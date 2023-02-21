@@ -96,3 +96,6 @@ ENV/
 
 # setuptools_scm
 _version.py
+
+# mac files
+.DS_Store
