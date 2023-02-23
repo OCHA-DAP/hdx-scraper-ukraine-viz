@@ -188,6 +188,7 @@ primary_national:
       - 5
       - 6
     admin_single: "UKR"
+    prefilter: "Total #affected != 0"
     input:
       - "Total #affected"
       - "Overall #inneed"
@@ -286,6 +287,7 @@ primary_subnational:
     admin:
       - ~
       - "Geography Oblast PCode"
+    prefilter: "Affected Population Estimate Total != 0"
     input:
       - "Affected Population Estimate Total"
       - "PIN Estimate by Population Group IDPs"
