@@ -143,7 +143,7 @@ class FTS(BaseScraper):
                 dict_of_lists_add(other_funding, iso3, None)
 
         base_url = self.datasetinfo["url"]
-        curdate = self.today - relativedelta(months=2)
+        curdate = self.today - relativedelta(months=1)
         url = f"{base_url}2/fts/flow/plan/overview/progress/{curdate.year}"
         data = self.download_data(url)
         plans = data["plans"]
