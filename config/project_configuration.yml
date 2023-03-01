@@ -156,29 +156,17 @@ primary_national:
       - "CountryCode"
     filter_cols:
       - "FundType"
-    subsets:
-      - filter: "FundType == 'CBPF'"
-        input:
-          - "Budget"
-        transform:
-          Budget: "float(Budget)"
-        sum:
-          - formula: "Budget"
-        output:
-          - "CBPFFunding"
-        output_hxl:
-          - "#value+cbpf+funding+total+usd"
-      - filter: "FundType == 'CERF'"
-        input:
-          - "Budget"
-        transform:
-          Budget: "float(Budget)"
-        sum:
-          - formula: "Budget"
-        output:
-          - "CERFFunding"
-        output_hxl:
-          - "#value+cerf+funding+total+usd"
+    prefilter: "FundType == 'CERF'"
+    input:
+      - "Budget"
+    transform:
+      Budget: "float(Budget)"
+    sum:
+      - formula: "Budget"
+    output:
+      - "CERFFunding"
+    output_hxl:
+      - "#value+cerf+funding+total+usd"
   inneed:
     dataset: "ukraine-hno"
     resource: "Ukraine 2023 HNO PIN and Severity for HDX 20230215.xlsx"
