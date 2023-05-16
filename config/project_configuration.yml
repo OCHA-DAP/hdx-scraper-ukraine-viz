@@ -192,6 +192,22 @@ primary_national:
     output_hxl:
       - "#affected+total"
       - "#affected+inneed+total"
+  returnees:
+    dataset: "ukraine-displacement-data-returnees-iom-dtm"
+    format: "xlsx"
+    sheet: "Returnees by Macro-region"
+    headers: 4
+    admin_single: "UKR"
+    input:
+      - "#affected+returnees+ind"
+    transform:
+      "#affected+returnees+ind": "get_numeric_if_possible(#affected+returnees+ind)"
+    sum:
+      - formula: "int(#affected+returnees+ind)"
+    output:
+      - "EstimatedReturnees"
+    output_hxl:
+      - "#affected+returnees+ind"
 
 fts:
   source: "OCHA"
