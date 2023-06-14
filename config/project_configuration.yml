@@ -195,13 +195,12 @@ primary_national:
   returnees:
     dataset: "ukraine-displacement-data-returnees-iom-dtm"
     format: "xlsx"
-    sheet: "Returnees by Macro-region"
-    headers: 4
+    use_hxl: True
     admin_single: "UKR"
     input:
       - "#affected+returnees+ind"
-    transform:
-      "#affected+returnees+ind": "get_numeric_if_possible(#affected+returnees+ind)"
+    input_ignore_vals:
+      - "n/a"
     sum:
       - formula: "int(#affected+returnees+ind)"
     output:
