@@ -30,9 +30,12 @@ class IDPs(BaseScraper):
         for inrow in iterator:
             if not inrow["Macro-Region"] or not inrow["# EST IDPs"]:
                 continue
+            region = inrow["Macro-Region"]
+            if region == "Central":
+                region = "Center"
             idps = int(inrow["# EST IDPs"])
             total += idps
-            rows.append((inrow["Macro-Region"], idps))
+            rows.append((region, idps))
         valuedict = self.get_values("national")[0]
         valuedict["UKR"] = total
         tabname = "idps_macro"
