@@ -171,6 +171,7 @@ primary_national:
     dataset: "ukraine-hno"
     resource: "Ukraine 2023 HNO PIN and Severity for HDX 20230215.xlsx"
     format: "xlsx"
+    source_date: "2023-02-15"
     sheet: "Overall PIN SADD by Oblast "
     headers:
       - 5
@@ -283,6 +284,7 @@ primary_subnational:
     dataset: "ukraine-hno"
     resource: "Ukraine 2023 HNO PIN and Severity for HDX 20230215.xlsx"
     format: "xlsx"
+    source_date: "2023-02-15"
     sheet: "Overall PIN SADD by Oblast "
     headers:
       - 4
