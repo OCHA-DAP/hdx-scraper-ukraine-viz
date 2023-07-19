@@ -65,44 +65,6 @@ primary_national:
     output_hxl:
       - "#affected+killed"
       - "#affected+injured"
-  attacks_education:
-    source: "Multiple Sources"
-    source_url: "https://data.humdata.org/dataset/ukraine-key-figures-2022"
-    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
-    format: "csv"
-    headers: 2
-    admin_single: "UKR"
-    prefilter: "Attacks on Education Facilities is not None"
-    date: "Date"
-    date_type: "date"
-    use_date: True
-    input:
-      - "Attacks on Education Facilities"
-    transform:
-      "Attacks on Education Facilities": "get_numeric_if_possible(Attacks on Education Facilities)"
-    output:
-      - "AttacksOnEducation"
-    output_hxl:
-      - "#indicator+attacks+education+num"
-  attacks_healthcare:
-    source: "WHO"
-    source_url: "https://data.humdata.org/dataset/ukraine-who-ssa"
-    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
-    format: "csv"
-    headers: 2
-    admin_single: "UKR"
-    prefilter: "Attacks on Health Care is not None"
-    date: "Date"
-    date_type: "date"
-    use_date: True
-    input:
-      - "Attacks on Health Care"
-    transform:
-      "Attacks on Health Care": "get_numeric_if_possible(Attacks on Health Care)"
-    output:
-      - "AttacksOnHealthcare"
-    output_hxl:
-      - "#indicator+attacks+healthcare+num"
   numberoforgs:
     dataset: "ukraine-who-does-what-where-3w"
     url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQIdedbZz0ehRC0b4fsWiP14R7MdtU1mpmwAkuXUPElSah2AWCURKGALFDuHjvyJUL8vzZAt3R1B5qg/pub?gid=0&single=true&output=csv"
