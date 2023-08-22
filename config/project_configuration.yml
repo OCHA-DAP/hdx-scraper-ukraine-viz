@@ -170,27 +170,6 @@ primary_national:
       - "EstimatedReturnees"
     output_hxl:
       - "#affected+returnees+ind"
-  targeted:
-    dataset: "ukraine-hno"
-    resource: "Ukraine 2023 HRP Response Activities and Targets for HDX 20230425.xlsx"
-    format: "xlsx"
-    source_date: "2023-04-25"
-    sheet: "Targeted by Cluster Oblast"
-    headers:
-      - 5
-    admin_single: "UKR"
-    input:
-      - "Intersectoral"
-    input_ignore_vals:
-      - "#targeted"
-    transform:
-      "Intersectoral": "get_numeric_if_possible(Intersectoral)"
-    sum:
-      - formula: "int(Intersectoral)"
-    output:
-      - "PeopleTargeted"
-    output_hxl:
-      - "#targeted+total"
 
 fts:
   source: "OCHA"
@@ -300,25 +279,6 @@ primary_subnational:
       - "#affected+inneed+nondisplaced"
       - "#affected+inneed+returnees"
       - "#affected+inneed+total"
-  targeted:
-    dataset: "ukraine-hno"
-    resource: "Ukraine 2023 HRP Response Activities and Targets for HDX 20230425.xlsx"
-    format: "xlsx"
-    source_date: "2023-04-25"
-    sheet: "Targeted by Cluster Oblast"
-    headers:
-      - 5
-    admin:
-      - ~
-      - "Oblast PCode"
-    input:
-      - "Intersectoral"
-    transform:
-      "Intersectoral": "int(get_numeric_if_possible(Intersectoral))"
-    output:
-      - "PeopleTargeted"
-    output_hxl:
-      - "#targeted+total"
 
 timeseries:
   casualties:
