@@ -1,2 +1,3 @@
 hdx-python-scraper==2.1.5
 gspread==5.10.0
+hdx-python-country==3.5.2
