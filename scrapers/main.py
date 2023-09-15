@@ -42,6 +42,7 @@ def get_indicators(
         primary_countries = configuration["primary_countries"]
     configuration["countries_fuzzy_try"] = primary_countries
     adminlevel = AdminLevel(configuration)
+    adminlevel.setup_from_admin_info(configuration["admin_info"])
     if fallbacks_root is not None:
         fallbacks_path = join(fallbacks_root, configuration["json"]["output"])
         levels_mapping = {
