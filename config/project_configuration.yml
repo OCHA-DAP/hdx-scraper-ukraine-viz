@@ -3,7 +3,6 @@ tabs:
   national: "NationalData"
   subnational: "SubnationalData"
   refugees_series: "RefugeesSeries"
-  idps_macro: "IDPsMacro"
   fatalities: "Fatalities"
   timeseries_casualties: "Casualties"
   secondary_national: "SecondaryNationalData"
@@ -191,6 +190,26 @@ primary_national:
       - "PeopleTargeted"
     output_hxl:
       - "#targeted+total"
+  idps:
+    dataset: "ukraine-idp-estimates"
+    format: "xlsx"
+    sheet: "Estimated Population"
+    headers:
+      - 2
+    admin_single: "UKR"
+    filter_cols:
+      - "#affected+idp+ind"
+    prefilter: "#affected+idp+ind != 'n/a'"
+    input:
+      - "#affected+idp+ind"
+    transform:
+      "#affected+idp+ind": "get_numeric_if_possible(#affected+idp+ind)"
+    sum:
+      - formula: "int(#affected+idp+ind)"
+    output:
+      - "IDP estimation"
+    output_hxl:
+      - "#affected+idps"
 
 fts:
   source: "OCHA"
@@ -319,6 +338,27 @@ primary_subnational:
       - "PeopleTargeted"
     output_hxl:
       - "#targeted+total"
+  idps:
+    dataset: "ukraine-idp-estimates"
+    format: "xlsx"
+    sheet: "Estimated Population"
+    headers:
+      - 2
+    admin:
+      - ~
+      - "#adm1+code"
+    filter_cols:
+      - "#adm1+code"
+      - "#affected+idp+ind"
+    prefilter: "#adm1+code != 'n/a' and #affected+idp+ind != 'n/a'"
+    input:
+      - "#affected+idp+ind"
+    transform:
+      "#affected+idp+ind": "int(get_numeric_if_possible(#affected+idp+ind))"
+    output:
+      - "IDP estimation"
+    output_hxl:
+      - "#affected+idps"
 
 timeseries:
   casualties:
@@ -355,13 +395,6 @@ acled:
   source: "ACLED"
   source_url: "https://acleddata.com/ukraine-crisis/"
   url: "https://api.acleddata.com/acled/read.csv?iso=804&year=%d&limit=0"
-
-idps:
-  dataset: "ukraine-idp-estimates"
-  resource: "Round 13 IDP Estimation 25 May 2023"
-  format: "xlsx"
-  sheet: "Current location of IDPs"
-  headers: 2
 
 grain_initiative:
   source: "JCC"
