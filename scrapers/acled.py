@@ -47,7 +47,7 @@ class ACLED(BaseScraper):
         reader = self.get_reader()
         for year in years:
             url = self.datasetinfo["url"] % year
-            path = reader.download_file(url)
+            path = reader.download_file(url, file_prefix=self.name)
             downloader = Download()
             headers, iterator = downloader.get_tabular_rows(path, dict_form=True)
             iterables.append(iterator)

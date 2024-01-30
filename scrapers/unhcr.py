@@ -30,7 +30,7 @@ class UNHCR(BaseScraper):
         url = self.datasetinfo["url"]
         valuedicts = self.get_values("national")
         reader = self.get_reader()
-        json = reader.download_json(url)
+        json = reader.download_json(url, file_prefix=self.name)
         total_refugees = 0
         for data in json["data"]:
             individuals = int(data["individuals"])
@@ -43,7 +43,7 @@ class UNHCR(BaseScraper):
         self.get_values("regional")[0]["value"] = total_refugees
 
         url = self.datasetinfo["url_series"]
-        json = reader.download_json(url)
+        json = reader.download_json(url, file_prefix=self.name)
         rows = [
             ("RefugeesDate", "NoRefugees"),
             ("#affected+date+refugees", "#affected+refugees"),
