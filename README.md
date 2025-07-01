@@ -1,4 +1,5 @@
-# hdx-scraper-ukraine-viz
+# DEPRECATED - Visualisation discontinued
+## hdx-scraper-ukraine-viz
 [![Build Status](https://github.com/OCHA-DAP/hdx-scraper-ukraine-viz/actions/workflows/run-python-tests.yml/badge.svg)](https://github.com/OCHA-DAP/hdx-scraper-ukraine-viz/actions/workflows/run-python-tests.yml) [![Coverage Status](https://coveralls.io/repos/github/OCHA-DAP/hdx-scraper-ukraine-viz/badge.svg?branch=main&ts=1)](https://coveralls.io/github/OCHA-DAP/hdx-scraper-ukraine-viz?branch=main)
 
 Please note:
